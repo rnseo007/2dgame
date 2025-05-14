@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7bkqi52340cw"]
+
+[ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://Fonts/NeoDunggeunmoPro-Regular.ttf" id="1_o33u0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o33u0"]
+bg_color = Color(0, 0, 0, 0.313726)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i1abf"]
+bg_color = Color(7.70092e-07, 0.706002, 0.522991, 1)
+
+[node name="Play_HUD" type="CanvasLayer"]
+
+[node name="Hp" type="Label" parent="."]
+z_index = 100
+texture_filter = 1
+offset_left = 10.0
+offset_top = 34.0
+offset_right = 166.0
+offset_bottom = 98.0
+theme_override_fonts/font = ExtResource("1_o33u0")
+theme_override_font_sizes/font_size = 64
+text = "HP : 5"
+vertical_alignment = 1
+
+[node name="Card" type="Label" parent="."]
+z_index = 100
+texture_filter = 1
+offset_left = 10.0
+offset_top = 87.0
+offset_right = 230.0
+offset_bottom = 119.0
+theme_override_fonts/font = ExtResource("1_o33u0")
+theme_override_font_sizes/font_size = 32
+text = "Card : 3"
+
+[node name="Xp_bar" type="ProgressBar" parent="."]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -240.0
+offset_right = 240.0
+offset_bottom = 35.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_o33u0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_i1abf")
+value = 50.0
+show_percentage = false
+
+[node name="Xp_percent" type="Label" parent="Xp_bar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_o33u0")
+theme_override_font_sizes/font_size = 32
+text = "50%"
+horizontal_alignment = 1
+vertical_alignment = 1

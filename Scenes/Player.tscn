@@ -323,6 +323,7 @@ graph_offset = Vector2(35, 65)
 script = ExtResource("1_gntrk")
 
 [node name="Shadow" type="Sprite2D" parent="."]
+z_index = -5
 texture_filter = 1
 scale = Vector2(3, 3)
 texture = ExtResource("2_dewec")
@@ -339,6 +340,7 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("RectangleShape2D_onrkg")
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
