@@ -11,4 +11,3 @@
 [node name="Enemy" parent="." instance=ExtResource("2_8gbba")]
 
 [node name="Play_HUD" parent="." instance=ExtResource("3_8gbba")]
-visible = false

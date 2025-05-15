@@ -155,7 +155,7 @@ states/Walk/node = SubResource("AnimationNodeBlendSpace1D_kpr8r")
 states/Walk/position = Vector2(369, 103)
 transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_wovta")]
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy", "TestEnemy"]]
 script = ExtResource("1_wovta")
 
 [node name="Enemy_sprite" type="Sprite2D" parent="."]
