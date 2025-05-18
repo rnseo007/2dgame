@@ -2,8 +2,12 @@ extends CharacterBody2D
 
 @export var speed : int = 300
 @export var attackDistance : float = 200.0
+
 #Attack cooltime max(setup)
 @export var attackCoolTime : float = 1.0
+@export var normalBulletSpeed : float = 100.0
+@export var damage : float = 1.0
+@export var normalCard : PackedScene
 
 var can_Attack : bool = true
 
@@ -35,12 +39,25 @@ func getCloseEnemy():
 	return close_Enemy
 
 
-func attack(target):
+func baseAttack(target):
 	if !can_Attack:
 		return
+	return
 	can_Attack = false
 	
-	#attack code here
+	
+	var base_card = normalCard.instantiate() as NormalCard
+	
+	base_card.damage = damage
+	base_card.speed = normalBulletSpeed
+	
+	get_tree().root.add_child(base_card)
+	
+	var move_direction = (target.global_position - global_position).normalized()
+	base_card.moveDirection = move_direction
+	base_card.global_position = global_position
+	#base_card.rotation = global_position.angle_to(target.global_position) * PI / 180
+	
 	
 	
 	get_tree().create_timer(attackCoolTime).timeout.connect(func(): can_Attack = true)
@@ -63,7 +80,9 @@ func _physics_process(_delta):
 		pass
 	
 	if enemy_array.size() > 0:
-		attack(getCloseEnemy())
+		baseAttack(getCloseEnemy())
+	
+	$TextText.text = "{0}\nTarget: {1}".format({0:global_position,1:getCloseEnemy()})
 
 #if enemy in attack area
 func _on_range_body_entered(body: Node2D) -> void:

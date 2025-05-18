@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://c0b35l8oeq3i"]
+[gd_scene load_steps=15 format=3 uid="uid://c0b35l8oeq3i"]
 
 [ext_resource type="Texture2D" uid="uid://cnbsfn7eerxp5" path="res://Enemy/Orc/Orc-Walk.png" id="1_m1htj"]
 [ext_resource type="Script" uid="uid://chd86x0nlcvtb" path="res://Scripts/enemy.gd" id="1_wovta"]
+[ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://Fonts/NeoDunggeunmoPro-Regular.ttf" id="3_xeo28"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hghv2"]
 radius = 18.0
@@ -155,6 +156,9 @@ states/Walk/node = SubResource("AnimationNodeBlendSpace1D_kpr8r")
 states/Walk/position = Vector2(369, 103)
 transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_wovta")]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpr8r"]
+bg_color = Color(0, 0, 0, 0.435294)
+
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy", "TestEnemy"]]
 script = ExtResource("1_wovta")
 
@@ -180,3 +184,17 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_1exfc")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Walk/blend_position = 0.0432836
+
+[node name="TestText" type="Label" parent="."]
+texture_filter = 1
+offset_left = 18.0
+offset_top = -26.0
+offset_right = 92.0
+offset_bottom = 47.0
+theme_override_fonts/font = ExtResource("3_xeo28")
+theme_override_font_sizes/font_size = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_kpr8r")
+text = "<ORC>
+(0, 0)
+HP: 10
+SPEED: 100"
