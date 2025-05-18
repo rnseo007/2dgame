@@ -21,6 +21,9 @@ func _ready() -> void:
 func setAttArea():
 	$Range/Range_Area.shape.radius = attackDistance
 
+func rad2deg(rad):
+	return rad * 180 / PI
+
 #get nearest enemy
 func getCloseEnemy():
 	#current nearest enemy distance + setup to attack distance
@@ -42,26 +45,23 @@ func getCloseEnemy():
 func baseAttack(target):
 	if !can_Attack:
 		return
-	return
+	if target == null:
+		return
 	can_Attack = false
 	
-	
-	var base_card = normalCard.instantiate() as NormalCard
+	var base_card = normalCard.instantiate()
 	
 	base_card.damage = damage
 	base_card.speed = normalBulletSpeed
-	
-	get_tree().root.add_child(base_card)
-	
-	var move_direction = (target.global_position - global_position).normalized()
-	base_card.moveDirection = move_direction
+	base_card.moveDirection = (target.global_position - global_position).normalized()
 	base_card.global_position = global_position
-	#base_card.rotation = global_position.angle_to(target.global_position) * PI / 180
+	base_card.rotation = rad2deg(atan2(target.global_position.y - global_position.y, target.global_position.x - global_position.x))
+	get_tree().root.add_child(base_card)
 	
 	
 	
 	get_tree().create_timer(attackCoolTime).timeout.connect(func(): can_Attack = true)
-	print("attack")
+	#print("attack")
 
 func _physics_process(_delta):
 	#reset velocity
@@ -81,8 +81,6 @@ func _physics_process(_delta):
 	
 	if enemy_array.size() > 0:
 		baseAttack(getCloseEnemy())
-	
-	$TextText.text = "{0}\nTarget: {1}".format({0:global_position,1:getCloseEnemy()})
 
 #if enemy in attack area
 func _on_range_body_entered(body: Node2D) -> void:
