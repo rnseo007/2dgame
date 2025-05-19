@@ -1,7 +1,20 @@
 extends CharacterBody2D
 
-@export var speed : int = 100
-@export var cur_hp : float = 10
+class_name Entity
+
+@export var speed : float = 100
+@export var cur_hp : float = 50
+@onready var hit_anim_player = $HitAnimationPlayer
+
+signal spawned(entity : Node2D)
+signal dead(entity : Node2D)
+
+func _ready() -> void:
+	spawned.emit($".")
+
+func death():
+	dead.emit($".")
+	queue_free()
 
 func _process(_delta):
 	velocity = Vector2.ZERO
@@ -14,10 +27,16 @@ func _process(_delta):
 	)
 	
 	velocity = direction.normalized() * speed
-	
-	var pte
+
 	if abs(playerPos.x-global_position.x) > 10:
-		pte = direction.x
-		$AnimationTree.set("parameters/Walk/blend_position", pte)
+		$AnimationTree.set("parameters/Walk/blend_position", direction.x)
+	
 	move_and_slide()
 	$TestText.text = "<ORC>\n{0}\nHP: {1}\nSPEED: {2}".format({0:global_position.floor(),1:cur_hp,2:speed})
+
+func take_damage(damage):
+	cur_hp -= damage
+	hit_anim_player.play("Hit_Animation")
+	
+	if cur_hp <= 0:
+		death()

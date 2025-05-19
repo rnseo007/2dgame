@@ -1,0 +1,63 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://dswfobaft0r5x"]
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_qjwrp"]
+parameter_name = "tint"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_vo165"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_qjwrp"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, 0.0]
+expanded_output_ports = [0]
+op_type = 4
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_luagr"]
+parameter_name = "BlendFloat"
+default_value_enabled = true
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform vec4 tint : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+uniform float BlendFloat = 0.0;
+
+
+
+void fragment() {
+// Input:5
+	vec4 n_out5p0 = COLOR;
+
+
+// ColorParameter:2
+	vec4 n_out2p0 = tint;
+
+
+// FloatParameter:9
+	float n_out9p0 = BlendFloat;
+
+
+// Mix:8
+	vec3 n_out8p0 = mix(vec3(n_out5p0.xyz), vec3(n_out2p0.xyz), n_out9p0);
+
+
+// Output:0
+	COLOR.rgb = n_out8p0;
+
+
+}
+"
+graph_offset = Vector2(-470.49, -16.5391)
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(260, 120)
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_qjwrp")
+nodes/fragment/2/position = Vector2(-760, 180)
+nodes/fragment/5/node = SubResource("VisualShaderNodeInput_vo165")
+nodes/fragment/5/position = Vector2(-800, 80)
+nodes/fragment/8/node = SubResource("VisualShaderNodeMix_qjwrp")
+nodes/fragment/8/position = Vector2(-90.7769, 89.4687)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatParameter_luagr")
+nodes/fragment/9/position = Vector2(-760, 420)
+nodes/fragment/connections = PackedInt32Array(2, 0, 8, 1, 5, 0, 8, 0, 9, 0, 8, 2, 8, 0, 0, 0)

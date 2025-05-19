@@ -1,25 +1,18 @@
 extends CharacterBody2D
 
-@export var speed : int = 300
-@export var attackDistance : float = 200.0
+@export var speed : float = 300
 
 #Attack cooltime max(setup)
 @export var attackCoolTime : float = 1.0
-@export var normalBulletSpeed : float = 100.0
+@export var normalBulletSpeed : float = 400.0
 @export var damage : float = 1.0
 @export var normalCard : PackedScene
 
+var cur_hp = 10
 var can_Attack : bool = true
 
 #in Attack Area enemy array
 var enemy_array = []
-
-func _ready() -> void:
-	setAttArea()
-
-#set Attack Area func
-func setAttArea():
-	$Range/Range_Area.shape.radius = attackDistance
 
 func rad2deg(rad):
 	return rad * 180 / PI
@@ -27,9 +20,9 @@ func rad2deg(rad):
 #get nearest enemy
 func getCloseEnemy():
 	#current nearest enemy distance + setup to attack distance
-	var close_Enemy_Dist = attackDistance
+	var close_Enemy_Dist = 1000
 	#current nearest enemy
-	var close_Enemy
+	var close_Enemy : Node2D
 	
 	for e in enemy_array:
 		#get current enemy distance
@@ -47,6 +40,7 @@ func baseAttack(target):
 		return
 	if target == null:
 		return
+	
 	can_Attack = false
 	
 	var base_card = normalCard.instantiate()
@@ -55,9 +49,8 @@ func baseAttack(target):
 	base_card.speed = normalBulletSpeed
 	base_card.moveDirection = (target.global_position - global_position).normalized()
 	base_card.global_position = global_position
-	base_card.rotation = rad2deg(atan2(target.global_position.y - global_position.y, target.global_position.x - global_position.x))
+	base_card.rotation = atan2(target.global_position.y - global_position.y, target.global_position.x - global_position.x)
 	get_tree().root.add_child(base_card)
-	
 	
 	
 	get_tree().create_timer(attackCoolTime).timeout.connect(func(): can_Attack = true)
@@ -80,12 +73,20 @@ func _physics_process(_delta):
 		pass
 	
 	if enemy_array.size() > 0:
+		var target = getCloseEnemy()
 		baseAttack(getCloseEnemy())
 
-#if enemy in attack area
-func _on_range_body_entered(body: Node2D) -> void:
-	enemy_array.append(body)
+func _on_enemy_spawned(entity: Node2D) -> void:
+	enemy_array.append(entity)
 
-#if enemy out attack area
-func _on_range_body_exited(body: Node2D) -> void:
-	enemy_array.erase(body)
+func _on_enemy_dead(entity: Node2D) -> void:
+	enemy_array.erase(entity)
+
+
+func _on_hit_area_2d_area_entered(area: Area2D) -> void:
+	cur_hp -= 1
+	$HitArea2D/HitBox.call_deferred("set", "disabled", true)
+	$HitArea2D/DisableTimer.start()
+
+func _on_disable_timer_timeout() -> void:
+	$HitArea2D/HitBox.call_deferred("set", "disabled", false)
