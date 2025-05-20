@@ -8,11 +8,15 @@ extends CharacterBody2D
 @export var damage : float = 1.0
 @export var normalCard : PackedScene
 
+signal player_cur_hp(hp : int)
 var cur_hp = 10
 var can_Attack : bool = true
 
 #in Attack Area enemy array
 var enemy_array = []
+
+func _ready() -> void:
+	player_cur_hp.emit(cur_hp)
 
 func rad2deg(rad):
 	return rad * 180 / PI
@@ -82,11 +86,7 @@ func _on_enemy_spawned(entity: Node2D) -> void:
 func _on_enemy_dead(entity: Node2D) -> void:
 	enemy_array.erase(entity)
 
-
-func _on_hit_area_2d_area_entered(area: Area2D) -> void:
-	cur_hp -= 1
-	$HitArea2D/HitBox.call_deferred("set", "disabled", true)
-	$HitArea2D/DisableTimer.start()
-
-func _on_disable_timer_timeout() -> void:
-	$HitArea2D/HitBox.call_deferred("set", "disabled", false)
+func _on_hit_area_2d_get_damage(dmg: int) -> void:
+	cur_hp -= dmg
+	player_cur_hp.emit(cur_hp)
+	$HitAnimationPlayer.play("Hit")

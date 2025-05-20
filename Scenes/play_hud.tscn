@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7bkqi52340cw"]
+[gd_scene load_steps=5 format=3 uid="uid://b7bkqi52340cw"]
 
+[ext_resource type="Script" uid="uid://ls5hm20ti0qp" path="res://Scripts/play_hud.gd" id="1_i1abf"]
 [ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://Fonts/NeoDunggeunmoPro-Regular.ttf" id="1_o33u0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o33u0"]
@@ -9,6 +10,7 @@ bg_color = Color(0, 0, 0, 0.313726)
 bg_color = Color(7.70092e-07, 0.706002, 0.522991, 1)
 
 [node name="Play_HUD" type="CanvasLayer"]
+script = ExtResource("1_i1abf")
 
 [node name="Hp" type="Label" parent="."]
 z_index = 100
@@ -19,7 +21,7 @@ offset_right = 166.0
 offset_bottom = 98.0
 theme_override_fonts/font = ExtResource("1_o33u0")
 theme_override_font_sizes/font_size = 64
-text = "HP : 5"
+text = "HP : <null>"
 vertical_alignment = 1
 
 [node name="Card" type="Label" parent="."]
@@ -31,7 +33,7 @@ offset_right = 230.0
 offset_bottom = 119.0
 theme_override_fonts/font = ExtResource("1_o33u0")
 theme_override_font_sizes/font_size = 32
-text = "Card : 3"
+text = "Card : <null>"
 
 [node name="Xp_bar" type="ProgressBar" parent="."]
 texture_filter = 1

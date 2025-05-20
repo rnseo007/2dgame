@@ -1,13 +1,12 @@
-[gd_scene load_steps=38 format=3 uid="uid://dtrgo1xqwerm0"]
+[gd_scene load_steps=41 format=3 uid="uid://dtrgo1xqwerm0"]
 
 [ext_resource type="Script" uid="uid://bsu8nnhmk6srg" path="res://Scripts/player.gd" id="1_gntrk"]
 [ext_resource type="PackedScene" uid="uid://civyjtqi6du8b" path="res://Scenes/Normal_Card.tscn" id="2_5ixxa"]
 [ext_resource type="Texture2D" uid="uid://nvrxqhjgj3fs" path="res://Player/player_character/prototype/Shadow.png" id="2_dewec"]
 [ext_resource type="Texture2D" uid="uid://btny67tjruj3w" path="res://Player/player_character/prototype/Prototype_Character.png" id="3_5ixxa"]
+[ext_resource type="PackedScene" uid="uid://bm03hx7as0hug" path="res://Scenes/hit_area_2d.tscn" id="5_5ixxa"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dewec"]
-radius = 18.0
-height = 46.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ixxa"]
 
 [sub_resource type="Animation" id="Animation_hqtel"]
 length = 0.001
@@ -321,9 +320,42 @@ states/d_Walk/position = Vector2(660, 137)
 transitions = ["d_Idle", "d_Walk", SubResource("AnimationNodeStateMachineTransition_nvl01"), "d_Walk", "d_Idle", SubResource("AnimationNodeStateMachineTransition_ivps1"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_u1c27"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_op7ga")]
 graph_offset = Vector2(35, 65)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ixxa"]
-radius = 19.0
-height = 48.0
+[sub_resource type="Animation" id="Animation_5ixxa"]
+resource_name = "Hit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player_sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nn08x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player_sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_52ee3"]
+_data = {
+&"Hit": SubResource("Animation_5ixxa"),
+&"RESET": SubResource("Animation_nn08x")
+}
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 2
@@ -346,7 +378,8 @@ vframes = 12
 metadata/_edit_group_ = true
 
 [node name="Player_collision" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_dewec")
+shape = SubResource("RectangleShape2D_5ixxa")
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -364,14 +397,11 @@ parameters/d_Walk/blend_position = Vector2(0.213716, 0.098901)
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_speed = 50.0
 
-[node name="HitArea2D" type="Area2D" parent="."]
-collision_mask = 2
+[node name="HitArea2D" parent="." groups=["player"] instance=ExtResource("5_5ixxa")]
 
-[node name="HitBox" type="CollisionShape2D" parent="HitArea2D"]
-shape = SubResource("CapsuleShape2D_5ixxa")
+[node name="HitAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_52ee3")
+}
 
-[node name="DisableTimer" type="Timer" parent="HitArea2D"]
-one_shot = true
-
-[connection signal="area_entered" from="HitArea2D" to="." method="_on_hit_area_2d_area_entered"]
-[connection signal="timeout" from="HitArea2D/DisableTimer" to="." method="_on_disable_timer_timeout"]
+[connection signal="get_damage" from="HitArea2D" to="." method="_on_hit_area_2d_get_damage"]

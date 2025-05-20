@@ -12,7 +12,7 @@
 position = Vector2(95, -207)
 
 [node name="Play_HUD" parent="." instance=ExtResource("3_8gbba")]
-visible = false
 
+[connection signal="player_cur_hp" from="Player" to="Play_HUD" method="_on_player_player_cur_hp"]
 [connection signal="dead" from="Enemy" to="Player" method="_on_enemy_dead"]
 [connection signal="spawned" from="Enemy" to="Player" method="_on_enemy_spawned"]
