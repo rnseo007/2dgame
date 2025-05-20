@@ -5,12 +5,14 @@ class_name Entity
 @export var speed : float = 100
 @export var cur_hp : float = 50
 @onready var hit_anim_player = $HitAnimationPlayer
+@onready var player = get_tree().get_first_node_in_group("player")
 
 signal spawned(entity : Node2D)
 signal dead(entity : Node2D)
 
 func _ready() -> void:
 	spawned.emit($".")
+	print("spawned")
 
 func death():
 	dead.emit($".")
@@ -19,7 +21,7 @@ func death():
 func _process(_delta):
 	velocity = Vector2.ZERO
 	
-	var playerPos : Vector2 = $"../Player".global_position
+	var playerPos : Vector2 = player.global_position
 	
 	var direction = Vector2(
 		0 if playerPos.x == global_position.x else -1 if playerPos.x < global_position.x else 1,

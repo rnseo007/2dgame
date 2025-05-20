@@ -77,7 +77,6 @@ func _physics_process(_delta):
 		pass
 	
 	if enemy_array.size() > 0:
-		var target = getCloseEnemy()
 		baseAttack(getCloseEnemy())
 
 func _on_enemy_spawned(entity: Node2D) -> void:
