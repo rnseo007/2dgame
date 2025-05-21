@@ -24,6 +24,7 @@ window/stretch/mode="canvas_items"
 
 Enemy="Enemy_All"
 player="player"
+Player_Bullet="Player_Bullet(card)"
 
 [input]
 
