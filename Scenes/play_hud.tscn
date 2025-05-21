@@ -15,10 +15,10 @@ script = ExtResource("1_i1abf")
 [node name="Hp" type="Label" parent="."]
 z_index = 100
 texture_filter = 1
-offset_left = 10.0
-offset_top = 34.0
-offset_right = 166.0
-offset_bottom = 98.0
+offset_left = 9.0
+offset_top = 47.0
+offset_right = 301.0
+offset_bottom = 111.0
 theme_override_fonts/font = ExtResource("1_o33u0")
 theme_override_font_sizes/font_size = 64
 text = "HP : <null>"
@@ -27,22 +27,19 @@ vertical_alignment = 1
 [node name="Card" type="Label" parent="."]
 z_index = 100
 texture_filter = 1
-offset_left = 10.0
-offset_top = 87.0
-offset_right = 230.0
-offset_bottom = 119.0
+offset_left = 9.0
+offset_top = 106.0
+offset_right = 229.0
+offset_bottom = 138.0
 theme_override_fonts/font = ExtResource("1_o33u0")
 theme_override_font_sizes/font_size = 32
 text = "Card : <null>"
 
 [node name="Xp_bar" type="ProgressBar" parent="."]
 texture_filter = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -240.0
-offset_right = 240.0
-offset_bottom = 35.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 38.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_o33u0")
 theme_override_font_sizes/font_size = 32

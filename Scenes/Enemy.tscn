@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c0b35l8oeq3i"]
+[gd_scene load_steps=14 format=3 uid="uid://c0b35l8oeq3i"]
 
 [ext_resource type="Texture2D" uid="uid://cnbsfn7eerxp5" path="res://Enemy/Orc/Orc-Walk.png" id="1_m1htj"]
 [ext_resource type="Script" uid="uid://chd86x0nlcvtb" path="res://Scripts/enemy.gd" id="1_wovta"]
@@ -20,7 +20,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Enemy_sprite:frame")
+tracks/0/path = NodePath("Enemy_sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -32,7 +32,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Enemy_sprite:texture")
+tracks/1/path = NodePath("Enemy_sprite2D:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -40,18 +40,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("1_m1htj")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Enemy_sprite:flip_h")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_qi2p4"]
@@ -60,7 +48,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Enemy_sprite:frame")
+tracks/0/path = NodePath("Enemy_sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -72,7 +60,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Enemy_sprite:texture")
+tracks/1/path = NodePath("Enemy_sprite2D:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -80,87 +68,13 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("1_m1htj")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Enemy_sprite:flip_h")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_epg4t"]
-resource_name = "walk_right"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Enemy_sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Enemy_sprite:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_m1htj")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Enemy_sprite:flip_h")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3yqyl"]
 _data = {
 &"RESET": SubResource("Animation_iifgy"),
-&"walk_left": SubResource("Animation_qi2p4"),
-&"walk_right": SubResource("Animation_epg4t")
+&"walk": SubResource("Animation_qi2p4")
 }
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wovta"]
-animation = &"walk_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xeo28"]
-animation = &"walk_right"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_kpr8r"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_wovta")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_xeo28")
-blend_point_1/pos = 1.0
-blend_mode = 1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wovta"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_1exfc"]
-states/Walk/node = SubResource("AnimationNodeBlendSpace1D_kpr8r")
-states/Walk/position = Vector2(369, 103)
-transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_wovta")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpr8r"]
 bg_color = Color(0, 0, 0, 0.435294)
@@ -171,7 +85,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Enemy_sprite:material:shader_parameter/BlendFloat")
+tracks/0/path = NodePath("Enemy_sprite2D:material:shader_parameter/BlendFloat")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -198,7 +112,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Enemy_sprite:material:shader_parameter/BlendFloat")
+tracks/0/path = NodePath("Enemy_sprite2D:material:shader_parameter/BlendFloat")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -229,15 +143,15 @@ _data = {
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy", "TestEnemy"]]
 collision_layer = 2
 collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_wovta")
 
-[node name="Enemy_sprite" type="Sprite2D" parent="."]
+[node name="Enemy_sprite2D" type="Sprite2D" parent="."]
 z_index = -5
 texture_filter = 1
 material = SubResource("ShaderMaterial_1exfc")
 scale = Vector2(3, 3)
 texture = ExtResource("1_m1htj")
-flip_h = true
 hframes = 8
 frame = 1
 
@@ -245,15 +159,10 @@ frame = 1
 position = Vector2(0, -1.5)
 shape = SubResource("CapsuleShape2D_hghv2")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="WalkAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_3yqyl")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_1exfc")
-anim_player = NodePath("../AnimationPlayer")
-parameters/Walk/blend_position = 0.0432836
 
 [node name="TestText" type="Label" parent="."]
 texture_filter = 1
