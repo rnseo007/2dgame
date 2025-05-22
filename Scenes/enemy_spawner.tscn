@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dlion5xr8sj8k" path="res://Scripts/spawninfo.gd" id="2_cdqhx"]
 [ext_resource type="PackedScene" uid="uid://c0b35l8oeq3i" path="res://Scenes/Enemy.tscn" id="3_tdwud"]
 
-[sub_resource type="Resource" id="Resource_gga2x"]
+[sub_resource type="Resource" id="Resource_344ge"]
 script = ExtResource("2_cdqhx")
 time_start = 0
 time_end = 60
@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://dlion5xr8sj8k"
 
 [node name="EnemySpawner" type="Node2D"]
 script = ExtResource("1_4l55s")
-spawns = Array[ExtResource("2_cdqhx")]([SubResource("Resource_gga2x")])
+spawns = Array[ExtResource("2_cdqhx")]([SubResource("Resource_344ge")])
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

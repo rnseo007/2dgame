@@ -3,7 +3,7 @@ extends Area2D
 class_name Card
 
 var hp : int = 1
-var knock_amount = 100
+var knock_amount : float = 50.0
 var attack_size = 1.0
 var speed : float = 100.0
 var damage : float = 1.0
@@ -20,8 +20,8 @@ func _ready() -> void:
 func _process(delta):
 	position += angle * speed * delta
 
-func enemy_hit(charge = 1):
-	hp -= charge
+func enemy_hit(_area : Area2D):
+	hp -= 1
 	if hp <= 0:
 		queue_free()
 
