@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://dtrgo1xqwerm0" path="res://Scenes/Player.tscn" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://b7bkqi52340cw" path="res://Scenes/play_hud.tscn" id="3_8gbba"]
-[ext_resource type="PackedScene" uid="uid://cwtjculhnmds1" path="res://Scenes/enemy_spawner.tscn" id="3_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://cwtjculhnmds1" path="res://Scenes/Enemy_spawner.tscn" id="3_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://b3rqc2fq4a257" path="res://Scenes/attack.tscn" id="4_jjvhh"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_bo1nx")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_bo1nx")]
 
 [node name="Play_HUD" parent="." instance=ExtResource("3_8gbba")]
 

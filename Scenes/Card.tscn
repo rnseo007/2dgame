@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://civyjtqi6du8b"]
 
-[ext_resource type="Texture2D" uid="uid://1ok77u6h131v" path="res://Player/Projectile/New_All_Fire_Bullet_Pixel_16x16/FireBall_16x16.png" id="1_qb2lp"]
-[ext_resource type="Script" uid="uid://beloibwkcrove" path="res://Scripts/nomalcard.gd" id="1_x8156"]
+[ext_resource type="Script" uid="uid://beloibwkcrove" path="res://Scripts/card.gd" id="1_3p273"]
+[ext_resource type="Texture2D" uid="uid://1ok77u6h131v" path="res://Player/Projectile/New_All_Fire_Bullet_Pixel_16x16/FireBall_16x16.png" id="2_h8wm0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qb2lp"]
 radius = 3.6
@@ -12,7 +12,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("NormalCardSprite2D:frame")
+tracks/0/path = NodePath("CardSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -29,7 +29,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("NormalCardSprite2D:frame")
+tracks/0/path = NodePath("CardSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -45,23 +45,23 @@ _data = {
 &"idle": SubResource("Animation_x8156")
 }
 
-[node name="NormalCard" type="Area2D" groups=["NormalCard", "Player_Bullet"]]
+[node name="Card" type="Area2D" groups=["Card", "Player_Bullet"]]
 scale = Vector2(3, 3)
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_x8156")
+script = ExtResource("1_3p273")
 
-[node name="NormalCardSprite2D" type="Sprite2D" parent="."]
+[node name="CardSprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_qb2lp")
+texture = ExtResource("2_h8wm0")
 offset = Vector2(0, 0.45)
 hframes = 5
 
-[node name="NormalCardCollision" type="CollisionShape2D" parent="."]
+[node name="CardCollision" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_qb2lp")
 
-[node name="NormalCardAnimation" type="AnimationPlayer" parent="."]
+[node name="CardAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_kbxue")
 }

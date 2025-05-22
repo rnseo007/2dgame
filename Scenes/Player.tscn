@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bsu8nnhmk6srg" path="res://Scripts/player.gd" id="1_gntrk"]
 [ext_resource type="Texture2D" uid="uid://nvrxqhjgj3fs" path="res://Player/player_character/prototype/Shadow.png" id="2_dewec"]
 [ext_resource type="Texture2D" uid="uid://btny67tjruj3w" path="res://Player/player_character/prototype/Prototype_Character.png" id="3_5ixxa"]
-[ext_resource type="PackedScene" uid="uid://bm03hx7as0hug" path="res://Scenes/hit_area_2d.tscn" id="5_5ixxa"]
+[ext_resource type="PackedScene" uid="uid://bm03hx7as0hug" path="res://Scenes/hurt_area_2d.tscn" id="5_5ixxa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ixxa"]
 
@@ -393,16 +393,14 @@ parameters/Walk/blend_position = 0.229851
 parameters/d_Idle/blend_position = Vector2(-0.102073, -0.215278)
 parameters/d_Walk/blend_position = Vector2(0.213716, 0.098901)
 
+[node name="HurtArea2D" parent="." groups=["Player"] instance=ExtResource("5_5ixxa")]
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_speed = 50.0
-
-[node name="HitArea2D" parent="." groups=["player"] instance=ExtResource("5_5ixxa")]
 
 [node name="HitAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_52ee3")
 }
 
-[connection signal="get_damage" from="HitArea2D" to="." method="_on_hit_area_2d_get_damage"]
-
-[editable path="HitArea2D"]
+[connection signal="damage" from="HurtArea2D" to="." method="_on_get_damage"]

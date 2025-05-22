@@ -2,9 +2,7 @@ extends Node2D
 
 @export var spawns : Array[Spawn_Info] = []
 
-@onready var player = get_tree().get_first_node_in_group("player")
-
-signal enemy_spawned(entity : Node2D)
+@onready var player = get_tree().get_first_node_in_group("Player")
 
 var time = 0
 

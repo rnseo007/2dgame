@@ -1,19 +1,18 @@
 extends Node2D
 
-@onready var player = get_tree().get_first_node_in_group("player")
+@onready var player = get_tree().get_first_node_in_group("Player")
 
 #Attacks
-var normalCard = preload("res://Scenes/Normal_Card.tscn")
+var card = preload("res://Scenes/Card.tscn")
 
 #Attack Nodes
-@onready var normalTimer = get_node("%NormalTimer")
-@onready var normalAttackTimer = get_node("%NormalAttackTimer")
+@onready var reloadTimer = get_node("%ReloadTimer")
+@onready var attackTimer = get_node("%AttackTimer")
 
-#Normal Card
-var normal_ammo = 0
-var normal_baseammo = 1
-var normal_attackspeed = 0.5
-var normal_level = 1
+#Card
+var cur_ammo = 0
+var max_ammo = 6
+var attack_speed = 0.5
 
 #Enemy Related
 var enemy_close = []
@@ -22,32 +21,29 @@ func _ready() -> void:
 	attack()
 
 func attack():
-	if normal_level > 0:
-		normalTimer.wait_time = normal_attackspeed
-		if normalTimer.is_stopped():
-			normalTimer.start()
+	if reloadTimer.is_stopped():
+		attackTimer.start()
 
-func _on_normal_timer_timeout() -> void:
-	normal_ammo += normal_baseammo
-	normalAttackTimer.start()
+func _on_reload_timer_timeout() -> void:
+	cur_ammo = max_ammo
+	attackTimer.start()
 
 func _on_normal_attack_timer_timeout() -> void:
 	var enemys : Array = get_tree().get_nodes_in_group("Enemy")
+	
 	if not enemys.size() > 0:
-		normalAttackTimer.start()
+		attackTimer.start()
 		return
 	
-	if normal_ammo > 0:
-		var normal_attack = normalCard.instantiate()
-		normal_attack.position = player.global_position
-		normal_attack.target = get_close_target(enemys)
-		normal_attack.level = normal_level
-		add_child(normal_attack)
-		normal_ammo -= 1
-		if normal_ammo > 0:
-			normalAttackTimer.start()
-		else:
-			normalAttackTimer.stop()
+	if cur_ammo > 0:
+		var card_attack = card.instantiate()
+		card_attack.position = player.global_position
+		card_attack.target = get_close_target(enemys)
+		add_child(card_attack)
+		cur_ammo -= 1
+	else:
+		attackTimer.stop()
+		reloadTimer.start()
 
 func get_close_target(enemys):
 	var cur_enemy_dist = 1000

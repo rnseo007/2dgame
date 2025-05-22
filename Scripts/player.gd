@@ -23,7 +23,7 @@ func movement():
 	else:
 		$AnimationTree.get("parameters/playback").travel("Idle")
 
-func _on_hit_area_2d_get_damage(dmg: int) -> void:
+func _on_get_damage(dmg) -> void:
 	hp -= dmg
 	player_cur_hp.emit(hp)
 	$HitAnimationPlayer.play("Hit")

@@ -1,8 +1,7 @@
 extends Area2D
 
-class_name NormalCard
+class_name Card
 
-var level : int = 1
 var hp : int = 1
 var knock_amount = 100
 var attack_size = 1.0
@@ -12,18 +11,11 @@ var damage : float = 1.0
 var target : Vector2 = Vector2.ZERO
 var angle : Vector2 = Vector2.ZERO
 
-@onready var player = get_tree().get_first_node_in_group("player")
+@onready var player = get_tree().get_first_node_in_group("Player")
 
 func _ready() -> void:
 	angle = global_position.direction_to(target)
 	rotation = angle.angle()
-	match level:
-		1:
-			hp = 1
-			speed = 100
-			damage = 1
-			knock_amount = 100
-			attack_size = 1.0
 
 func _process(delta):
 	position += angle * speed * delta

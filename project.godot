@@ -23,8 +23,8 @@ window/stretch/mode="canvas_items"
 [global_group]
 
 Enemy="Enemy_All"
-player="player"
 Player_Bullet="Player_Bullet(card)"
+Player="player"
 
 [input]
 
