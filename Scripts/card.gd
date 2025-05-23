@@ -5,7 +5,7 @@ class_name Card
 var hp : int = 1
 var knock_amount : float = 50.0
 var attack_size = 1.0
-var speed : float = 100.0
+var speed : float = 200.0
 var damage : float = 1.0
 
 var target : Vector2 = Vector2.ZERO

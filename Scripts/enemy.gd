@@ -39,6 +39,7 @@ func _on_hit_box_entered(area: Area2D) -> void:
 	if area.is_in_group("Player_Bullet"):
 		var node = area as Node
 		cur_hp -= node.damage
+		hit_anim.stop()
 		hit_anim.play("Hit_Animation")
 		cur_speed -= node.knock_amount
 	if cur_hp <= 0:

@@ -44,7 +44,6 @@ func _on_attack_timer_timeout() -> void:
 		reloadTimer.start(reload_time)
 
 func get_close_target(enemys):
-	print("---------------------")
 	var cur_enemy_dist = 10000
 	var cur_enemy_pos : Vector2 = Vector2.ZERO
 	for i in enemys:
