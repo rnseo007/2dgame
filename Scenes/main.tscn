@@ -14,5 +14,3 @@
 [node name="EnemySpawner" parent="." instance=ExtResource("3_jjvhh")]
 
 [node name="Attack" parent="." instance=ExtResource("4_jjvhh")]
-
-[connection signal="player_cur_hp" from="Player" to="Play_HUD" method="_on_player_player_cur_hp"]

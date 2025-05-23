@@ -1,11 +1,12 @@
 extends CharacterBody2D
 
-@export var movement_speed : float = 300
-signal player_cur_hp(hp : int)
-var hp = 10
+@onready var hit_anim = $HitAnimationPlayer
 
-func _ready() -> void:
-	player_cur_hp.emit(hp)
+@export var movement_speed : float = 300
+var hp = 10
+var cur_xp : int = 0
+var max_xp : int = 10
+var level : int = 1
 
 func _physics_process(_delta):
 	movement()
@@ -25,5 +26,5 @@ func movement():
 
 func _on_get_damage(dmg : int) -> void:
 	hp -= dmg
-	player_cur_hp.emit(hp)
-	$HitAnimationPlayer.play("Hit")
+	hit_anim.stop()
+	hit_anim.play("Hit")

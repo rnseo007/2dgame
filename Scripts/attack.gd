@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name AttackControl
+
 @onready var player = get_tree().get_first_node_in_group("Player")
 
 #Attacks
