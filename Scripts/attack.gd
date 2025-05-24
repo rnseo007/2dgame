@@ -17,9 +17,6 @@ var max_ammo = 6
 var attack_speed = 0.5
 var reload_time = 1.0
 
-#Enemy Related
-var enemy_close = []
-
 func _ready() -> void:
 	reloadTimer.start(reload_time)
 
@@ -49,7 +46,6 @@ func get_close_target(enemys):
 	var cur_enemy_dist = 10000
 	var cur_enemy_pos : Vector2 = Vector2.ZERO
 	for i in enemys:
-		print(i.global_position)
 		var enemy_dist = player.global_position.distance_to(i.global_position)
 		if enemy_dist < cur_enemy_dist:
 			cur_enemy_dist = enemy_dist
