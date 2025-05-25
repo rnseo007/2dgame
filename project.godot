@@ -25,6 +25,7 @@ window/stretch/mode="canvas_items"
 Enemy="Enemy_All"
 Player_Bullet="Player_Bullet(card)"
 Player="player"
+Loot="Loots"
 
 [input]
 
@@ -54,6 +55,7 @@ move_down={
 2d_physics/layer_1="player"
 2d_physics/layer_2="enemy"
 2d_physics/layer_3="player_bullet"
+2d_physics/layer_4="loot"
 
 [rendering]
 

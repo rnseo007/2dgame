@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dtrgo1xqwerm0"]
+[gd_scene load_steps=42 format=3 uid="uid://dtrgo1xqwerm0"]
 
 [ext_resource type="Script" uid="uid://bsu8nnhmk6srg" path="res://Scripts/player.gd" id="1_gntrk"]
 [ext_resource type="Texture2D" uid="uid://nvrxqhjgj3fs" path="res://Player/player_character/prototype/Shadow.png" id="2_dewec"]
@@ -358,6 +358,11 @@ _data = {
 &"RESET": SubResource("Animation_nn08x")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dewec"]
+radius = 102.825
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ixxa"]
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 2
 motion_mode = 1
@@ -404,4 +409,20 @@ libraries = {
 &"": SubResource("AnimationLibrary_52ee3")
 }
 
+[node name="GrabArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
+shape = SubResource("CircleShape2D_dewec")
+
+[node name="CollectArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
+shape = SubResource("CircleShape2D_5ixxa")
+
 [connection signal="damage" from="HurtArea2D" to="." method="_on_get_damage"]
+[connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
+[connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]

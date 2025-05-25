@@ -3,13 +3,16 @@ extends CharacterBody2D
 class_name Entity
 
 @export var speed : float = 100
-@export var cur_hp : int = 50
+@export var cur_hp : int = 5
 @export var knockback_recovery = 3.5
+@export var xp_drop_chance : int = 50 # % percent
+@export var xp_amount : int = 5
 
 @onready var sprite = $Enemy_sprite2D
 @onready var walk_anim = $WalkAnimationPlayer
 @onready var hit_anim = $HitAnimationPlayer
 @onready var player = get_tree().get_first_node_in_group("Player")
+@onready var loot_base = get_tree().get_first_node_in_group("Loot")
 
 var knockback : Vector2 = Vector2.ZERO
 var knockback_angle : Vector2 = Vector2.ZERO
@@ -17,10 +20,16 @@ var knockback_amount : float = 1
 
 var hit_once_array = []
 
+var experince_object = preload("res://Scenes/experience.tscn")
+
 func _ready():
 	walk_anim.play("walk")
 
 func death():
+	var new_exp = experince_object.instantiate()
+	new_exp.global_position = global_position
+	new_exp.experience = xp_amount
+	loot_base.add_child(new_exp)
 	queue_free()
 
 func _process(_delta):

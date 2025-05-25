@@ -47,3 +47,14 @@ theme_override_styles/background = SubResource("StyleBoxFlat_o33u0")
 theme_override_styles/fill = SubResource("StyleBoxFlat_i1abf")
 step = 1.0
 value = 50.0
+
+[node name="Level" type="Label" parent="Xp_bar"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 9.0
+offset_top = 3.0
+offset_right = 125.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("1_o33u0")
+theme_override_font_sizes/font_size = 32
+text = "LEVEL: 1"
