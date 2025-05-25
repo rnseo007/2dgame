@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3rqc2fq4a257"]
+
+[ext_resource type="Script" uid="uid://cm8dffjkceydk" path="res://Scripts/attack.gd" id="1_ij4ji"]
+[ext_resource type="Script" uid="uid://cvokh0t3ck47q" path="res://Scripts/HUD_Scripts/card_list.gd" id="2_ctoix"]
+[ext_resource type="PackedScene" uid="uid://civyjtqi6du8b" path="res://Scenes/Cards/BlankCard.tscn" id="3_5ulhb"]
+
+[sub_resource type="Resource" id="Resource_g3ot3"]
+script = ExtResource("2_ctoix")
+card = ExtResource("3_5ulhb")
+metadata/_custom_type_script = "uid://cvokh0t3ck47q"
+
+[node name="Attack" type="Node2D"]
+script = ExtResource("1_ij4ji")
+card_list = Array[ExtResource("2_ctoix")]([SubResource("Resource_g3ot3")])
+
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

@@ -26,6 +26,7 @@ Enemy="Enemy_All"
 Player_Bullet="Player_Bullet(card)"
 Player="player"
 Loot="Loots"
+HUD_Cards="cards for hud"
 
 [input]
 

@@ -5,7 +5,7 @@ class_name AttackControl
 @onready var player = get_tree().get_first_node_in_group("Player")
 
 #Attacks
-var card = preload("res://Scenes/Card.tscn")
+var card = preload("res://Scenes/Cards/BlankCard.tscn")
 
 #Attack Nodes
 @onready var reloadTimer = $ReloadTimer
@@ -16,11 +16,23 @@ var cur_ammo = 0
 var max_ammo = 6
 var attack_speed = 0.5
 var reload_time = 1.0
+var inv_max = 36
+
+#Attack Card List
+@export var card_list : Array[CardList] = []
+var inv_card_list : Array = []
+var cur_card_list : Array = []
 
 func _ready() -> void:
+	for i in range(0, inv_max):
+		inv_card_list.append(card_list[0])
+	print(inv_card_list.size())
 	reloadTimer.start(reload_time)
 
 func _on_reload_timer_timeout() -> void:
+	for i in range(0, max_ammo):
+		cur_card_list.append(inv_card_list.pick_random())
+	
 	cur_ammo = max_ammo
 	attackTimer.start(attack_speed)
 
@@ -36,6 +48,9 @@ func _on_attack_timer_timeout() -> void:
 		card_attack.position = player.global_position
 		card_attack.target = get_close_target(enemys)
 		add_child(card_attack)
+		if cur_card_list.size() > 0:
+			cur_card_list.remove_at(0)
+		print(cur_card_list)
 		cur_ammo -= 1
 		attackTimer.start(attack_speed)
 	else:

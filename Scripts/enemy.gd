@@ -20,7 +20,7 @@ var knockback_amount : float = 1
 
 var hit_once_array = []
 
-var experince_object = preload("res://Scenes/experience.tscn")
+var experince_object = preload("res://Scenes/Main_Scenes/experience.tscn")
 
 func _ready():
 	walk_anim.play("walk")

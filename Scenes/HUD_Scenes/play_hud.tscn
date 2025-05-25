@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://b7bkqi52340cw"]
+
+[ext_resource type="Script" uid="uid://ls5hm20ti0qp" path="res://Scripts/play_hud.gd" id="1_i1abf"]
+[ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="1_o33u0"]
+[ext_resource type="Script" uid="uid://cbr8f5ejtty16" path="res://Scripts/HUD_Scripts/inv.gd" id="3_kq7x5"]
+[ext_resource type="PackedScene" uid="uid://cg0firplnhijr" path="res://Scenes/HUD_Scenes/blank_card.tscn" id="4_mpb4m"]
+[ext_resource type="Script" uid="uid://cvokh0t3ck47q" path="res://Scripts/HUD_Scripts/card_list.gd" id="4_sywih"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o33u0"]
+bg_color = Color(0, 0, 0, 0.313726)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i1abf"]
+bg_color = Color(7.70092e-07, 0.706002, 0.522991, 1)
+
+[sub_resource type="Resource" id="Resource_oqe2g"]
+script = ExtResource("4_sywih")
+card = ExtResource("4_mpb4m")
+metadata/_custom_type_script = "uid://cvokh0t3ck47q"
+
+[node name="Play_HUD" type="CanvasLayer"]
+script = ExtResource("1_i1abf")
+
+[node name="Hp" type="Label" parent="."]
+z_index = 100
+texture_filter = 1
+offset_left = 9.0
+offset_top = 47.0
+offset_right = 301.0
+offset_bottom = 111.0
+theme_override_fonts/font = ExtResource("1_o33u0")
+theme_override_font_sizes/font_size = 64
+text = "HP : <null>"
+vertical_alignment = 1
+
+[node name="Card" type="Label" parent="."]
+z_index = 100
+texture_filter = 1
+offset_left = 9.0
+offset_top = 106.0
+offset_right = 229.0
+offset_bottom = 138.0
+theme_override_fonts/font = ExtResource("1_o33u0")
+theme_override_font_sizes/font_size = 32
+text = "Card : <null>"
+
+[node name="Xp_bar" type="ProgressBar" parent="."]
+texture_filter = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_o33u0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/background = SubResource("StyleBoxFlat_o33u0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_i1abf")
+step = 1.0
+value = 50.0
+
+[node name="Level" type="Label" parent="Xp_bar"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 9.0
+offset_top = 3.0
+offset_right = 125.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("1_o33u0")
+theme_override_font_sizes/font_size = 32
+text = "LEVEL: 1"
+
+[node name="Inv" type="Node2D" parent="."]
+script = ExtResource("3_kq7x5")
+card_list = Array[ExtResource("4_sywih")]([SubResource("Resource_oqe2g")])
+
+[node name="BlankCard" parent="Inv" instance=ExtResource("4_mpb4m")]
+position = Vector2(648, 628)
