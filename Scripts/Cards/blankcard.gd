@@ -1,12 +1,12 @@
 extends Area2D
 
-class_name Card
-
-var hp : int = 3
+var hp : int = 1
 var knock_amount : float = 100.0
 var attack_size = 1.0
-var speed : float = 300.0
-var damage : float = 1.0
+var speed : float = 400.0
+var damage : int = 1
+
+var debuff : String = "none"
 
 var target : Vector2 = Vector2.ZERO
 var angle : Vector2 = Vector2.ZERO
@@ -22,7 +22,7 @@ func _ready() -> void:
 func _process(delta):
 	position += angle * speed * delta
 
-func enemy_hit(area : Area2D):
+func enemy_hit(_area : Area2D):
 	hp -= 1
 	if hp <= 0:
 		remove_from_array.emit(self)

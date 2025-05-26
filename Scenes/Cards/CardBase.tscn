@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://civyjtqi6du8b"]
+
+[ext_resource type="Script" uid="uid://beloibwkcrove" path="res://Scripts/Cards/blankcard.gd" id="1_py8yy"]
+[ext_resource type="Texture2D" uid="uid://dhsagceuhckah" path="res://assets/Card/Cards/blankcard.png" id="2_jdqsh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_45e0r"]
+size = Vector2(6.66667, 10)
+
+[node name="CardBase" type="Area2D" groups=["Card", "Player_Bullet"]]
+scale = Vector2(3, 3)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_py8yy")
+
+[node name="CardSprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 1.5708
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_jdqsh")
+
+[node name="CardCollision" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_45e0r")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="enemy_hit"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

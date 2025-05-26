@@ -42,11 +42,11 @@ func _on_grab_area_area_entered(area: Area2D) -> void:
 
 func _on_collect_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Loot"):
-		var exp = area.collect()
-		calculate_experience(exp)
+		var gxp = area.collect()
+		calculate_experience(gxp)
 
-func calculate_experience(exp):
-	cur_xp += exp
+func calculate_experience(gotxp : int):
+	cur_xp += gotxp
 	if cur_xp >= max_xp:
 		cur_xp -= max_xp
 		level += 1

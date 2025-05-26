@@ -11,12 +11,17 @@ class_name Entity
 @onready var sprite = $Enemy_sprite2D
 @onready var walk_anim = $WalkAnimationPlayer
 @onready var hit_anim = $HitAnimationPlayer
+@onready var debuff_timer = $DebuffTimes/Debuff_timer
+@onready var debuff_pulse_timer = $DebuffTimes/Debuff_pulse_timer
 @onready var player = get_tree().get_first_node_in_group("Player")
 @onready var loot_base = get_tree().get_first_node_in_group("Loot")
 
 var knockback : Vector2 = Vector2.ZERO
 var knockback_angle : Vector2 = Vector2.ZERO
 var knockback_amount : float = 1
+
+var debuff : String = "none"
+var debuff_damage : int = 0
 
 var hit_once_array = []
 
@@ -29,7 +34,7 @@ func death():
 	var new_exp = experince_object.instantiate()
 	new_exp.global_position = global_position
 	new_exp.experience = xp_amount
-	loot_base.add_child(new_exp)
+	loot_base.get_tree().current_scene.call_deferred("add_child", new_exp)
 	queue_free()
 
 func _process(_delta):
@@ -45,7 +50,7 @@ func _process(_delta):
 		sprite.flip_h = true
 	
 	move_and_slide()
-	$TestText.text = "<ORC>\n{0}\nHP: {1}\nSPEED: {2}".format({0:global_position.floor(),1:cur_hp,2:speed})
+	$TestText.text = "<ORC>\n{0}\nHP: {1}\nSPEED: {2}\nDebuff: {3}".format({0:global_position.floor(),1:cur_hp,2:speed,3:debuff})
 
 func _on_hit_box_entered(area: Area2D) -> void:
 	if area.is_in_group("Player_Bullet"):
@@ -59,17 +64,43 @@ func _on_hit_box_entered(area: Area2D) -> void:
 		
 		var node = area as Node
 		if not node.get("damage") == null:
-			cur_hp -= node.damage
+			calculate_hp(node.damage)
 			hit_anim.stop()
 			hit_anim.play("Hit_Animation")
+			
 			if not node.get("angle") == null:
 				knockback_angle = node.angle
+			
 			if not node.get("knock_amount") == null:
 				knockback_amount = node.knock_amount
 			knockback = knockback_angle * knockback_amount
-	if cur_hp <= 0:
-		death()
+			
+			if not area.get("debuff") == "none" and not area.get("debuff") == null:
+				debuff = area.get("debuff")
+				debuff_pulse_timer.wait_time = area.get("debuff_pulse_time")
+				debuff_damage = area.get("debuff_damage")
+				debuff_timer.start(area.get("debuff_time"))
+				if debuff_pulse_timer.is_stopped():
+					debuff_pulse_timer.start()
+				if not area.get("debuff_color") == null:
+					sprite.self_modulate = area.get("debuff_color")
 
 func remove_from_list(object):
 	if hit_once_array.has(object):
 		hit_once_array.erase(object)
+
+func calculate_hp(dmg : int):
+	cur_hp -= dmg
+	if cur_hp <= 0:
+		death()
+
+func _on_debuff_timer_timeout() -> void:
+	debuff_pulse_timer.stop()
+	debuff = "none"
+	debuff_damage = 0
+	self_modulate = Color(0, 0, 0,0)
+
+
+func _on_debuff_pulse_timer_timeout() -> void:
+	hit_anim.play("Hit_Animation")
+	calculate_hp(debuff_damage)

@@ -1,21 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7bkqi52340cw"]
+[gd_scene load_steps=6 format=3 uid="uid://b7bkqi52340cw"]
 
 [ext_resource type="Script" uid="uid://ls5hm20ti0qp" path="res://Scripts/play_hud.gd" id="1_i1abf"]
 [ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="1_o33u0"]
 [ext_resource type="Script" uid="uid://cbr8f5ejtty16" path="res://Scripts/HUD_Scripts/inv.gd" id="3_kq7x5"]
-[ext_resource type="PackedScene" uid="uid://cg0firplnhijr" path="res://Scenes/HUD_Scenes/blank_card.tscn" id="4_mpb4m"]
-[ext_resource type="Script" uid="uid://cvokh0t3ck47q" path="res://Scripts/HUD_Scripts/card_list.gd" id="4_sywih"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o33u0"]
 bg_color = Color(0, 0, 0, 0.313726)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i1abf"]
 bg_color = Color(7.70092e-07, 0.706002, 0.522991, 1)
-
-[sub_resource type="Resource" id="Resource_oqe2g"]
-script = ExtResource("4_sywih")
-card = ExtResource("4_mpb4m")
-metadata/_custom_type_script = "uid://cvokh0t3ck47q"
 
 [node name="Play_HUD" type="CanvasLayer"]
 script = ExtResource("1_i1abf")
@@ -69,7 +62,3 @@ text = "LEVEL: 1"
 
 [node name="Inv" type="Node2D" parent="."]
 script = ExtResource("3_kq7x5")
-card_list = Array[ExtResource("4_sywih")]([SubResource("Resource_oqe2g")])
-
-[node name="BlankCard" parent="Inv" instance=ExtResource("4_mpb4m")]
-position = Vector2(648, 628)
