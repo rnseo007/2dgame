@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://is3f8l1a0tl5"]
+
+[ext_resource type="Script" uid="uid://c2mw62llwb0gu" path="res://Scripts/Cards/Fires/fire_bolt.gd" id="1_gr3yr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nquq1"]
+radius = 2.23607
+
+[sub_resource type="Gradient" id="Gradient_gr3yr"]
+offsets = PackedFloat32Array(0, 0.208835, 0.738956, 1)
+colors = PackedColorArray(1, 0.233333, 0, 1, 1, 0.666667, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2qu6i"]
+gradient = SubResource("Gradient_gr3yr")
+
+[sub_resource type="Curve" id="Curve_rjg06"]
+_data = [Vector2(0, 0), 0.0, 19.4654, 0, 0, Vector2(0.138182, 1), 0.0, 0.0, 0, 0, Vector2(0.996364, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_rut5f"]
+curve = SubResource("Curve_rjg06")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0a557"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 2.5
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 0, 0)
+initial_velocity_max = 1.0
+gravity = Vector3(0, 50, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_rut5f")
+color_ramp = SubResource("GradientTexture1D_2qu6i")
+turbulence_noise_strength = 0.0
+
+[node name="FireBolt" type="Area2D"]
+script = ExtResource("1_gr3yr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nquq1")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, -1)
+amount = 100
+lifetime = 1.5
+process_material = SubResource("ParticleProcessMaterial_0a557")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="enemy_hit"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

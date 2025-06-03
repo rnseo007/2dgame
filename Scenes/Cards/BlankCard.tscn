@@ -1,22 +1,22 @@
 [gd_scene load_steps=4 format=3 uid="uid://civyjtqi6du8b"]
 
-[ext_resource type="Script" uid="uid://beloibwkcrove" path="res://Scripts/Cards/blankcard.gd" id="1_py8yy"]
-[ext_resource type="Texture2D" uid="uid://dhsagceuhckah" path="res://assets/Card/Cards/blankcard.png" id="2_jdqsh"]
+[ext_resource type="Script" uid="uid://beloibwkcrove" path="res://Scripts/Cards/blankcard.gd" id="1_lqxfj"]
+[ext_resource type="Texture2D" uid="uid://dhsagceuhckah" path="res://assets/Card/Cards/blankcard.png" id="2_45e0r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_45e0r"]
 size = Vector2(6.66667, 10)
 
-[node name="CardBase" type="Area2D" groups=["Card", "Player_Bullet"]]
+[node name="BlankCard" type="Area2D" groups=["Card", "Player_Bullet"]]
 scale = Vector2(3, 3)
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_py8yy")
+script = ExtResource("1_lqxfj")
 
 [node name="CardSprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 rotation = 1.5708
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_jdqsh")
+texture = ExtResource("2_45e0r")
 
 [node name="CardCollision" type="CollisionShape2D" parent="."]
 rotation = 1.5708
