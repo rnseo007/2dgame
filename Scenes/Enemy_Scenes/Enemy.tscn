@@ -148,6 +148,7 @@ libraries = {
 }
 
 [node name="TestText" type="Label" parent="."]
+visible = false
 texture_filter = 1
 offset_left = 18.0
 offset_top = -26.0

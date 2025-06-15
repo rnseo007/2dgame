@@ -8,6 +8,8 @@ class_name AttackControl
 @onready var reloadTimer = $ReloadTimer
 @onready var attackTimer = $AttackTimer
 
+signal reload_card(cardlist : Array)
+
 #Card
 var cur_ammo = 0
 var max_ammo = 6
@@ -25,7 +27,7 @@ var card_list = {
 
 func _ready() -> void:
 	for i in range(0, inv_max):
-		inv_card_list.append(card_list.keys()[1])
+		inv_card_list.append(card_list.keys().pick_random())
 	print(inv_card_list.size())
 	reloadTimer.start(reload_time)
 
