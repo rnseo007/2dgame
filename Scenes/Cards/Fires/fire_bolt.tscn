@@ -3,51 +3,65 @@
 [ext_resource type="Script" uid="uid://c2mw62llwb0gu" path="res://Scripts/Cards/Fires/fire_bolt.gd" id="1_gr3yr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nquq1"]
-radius = 2.23607
+radius = 4.0
 
 [sub_resource type="Gradient" id="Gradient_gr3yr"]
 offsets = PackedFloat32Array(0, 0.208835, 0.738956, 1)
 colors = PackedColorArray(1, 0.233333, 0, 1, 1, 0.666667, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2qu6i"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gr3yr"]
 gradient = SubResource("Gradient_gr3yr")
 
 [sub_resource type="Curve" id="Curve_rjg06"]
 _data = [Vector2(0, 0), 0.0, 19.4654, 0, 0, Vector2(0.138182, 1), 0.0, 0.0, 0, 0, Vector2(0.996364, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_rut5f"]
+[sub_resource type="CurveTexture" id="CurveTexture_2qu6i"]
 curve = SubResource("Curve_rjg06")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0a557"]
+resource_local_to_scene = true
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 2.5
+emission_sphere_radius = 6.0
 angle_min = -180.0
 angle_max = 180.0
-direction = Vector3(0, 0, 0)
 initial_velocity_max = 1.0
-gravity = Vector3(0, 50, 0)
-scale_max = 3.0
-scale_curve = SubResource("CurveTexture_rut5f")
-color_ramp = SubResource("GradientTexture1D_2qu6i")
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_2qu6i")
+color_ramp = SubResource("GradientTexture1D_gr3yr")
 turbulence_noise_strength = 0.0
+sub_emitter_mode = 1
+sub_emitter_frequency = 4.0
 
-[node name="FireBolt" type="Area2D"]
+[node name="FireBolt" type="Area2D" groups=["Player_Bullet"]]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_gr3yr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_nquq1")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-position = Vector2(0, -1)
-amount = 100
-lifetime = 1.5
+[node name="FireTrail" type="GPUParticles2D" parent="."]
+visible = false
+amount = 50
+lifetime = 0.5
+trail_lifetime = 0.8
+process_material = SubResource("ParticleProcessMaterial_0a557")
+
+[node name="FireBall" type="GPUParticles2D" parent="."]
+amount = 30
+local_coords = true
+trail_lifetime = 0.8
 process_material = SubResource("ParticleProcessMaterial_0a557")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 4.0
+one_shot = true
 autostart = true
 
 [connection signal="area_entered" from="." to="." method="enemy_hit"]
+[connection signal="finished" from="FireTrail" to="." method="_on_gpu_particles_2d_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

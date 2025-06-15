@@ -45,11 +45,11 @@ func _on_attack_timer_timeout() -> void:
 	
 	if cur_ammo > 0:
 		print(cur_card_list)
-		var card_attack = card_list[cur_card_list[0]].instantiate()
-		card_attack.position = player.global_position
-		card_attack.target = get_close_target(enemys)
+		var attack = card_list[cur_card_list[0]].instantiate()
+		attack.position = player.global_position
+		attack.target = get_close_target(enemys)
 		
-		add_child(card_attack)
+		add_child(attack)
 		
 		if cur_card_list.size() > 0:
 			cur_card_list.remove_at(0)

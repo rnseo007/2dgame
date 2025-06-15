@@ -173,3 +173,5 @@ one_shot = true
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_entered"]
 [connection signal="timeout" from="DebuffTimes/Debuff_timer" to="." method="_on_debuff_timer_timeout"]
 [connection signal="timeout" from="DebuffTimes/Debuff_pulse_timer" to="." method="_on_debuff_pulse_timer_timeout"]
+
+[editable path="HitBox"]

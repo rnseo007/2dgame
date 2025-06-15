@@ -3,7 +3,7 @@ extends CharacterBody2D
 class_name Entity
 
 @export var speed : float = 100
-@export var cur_hp : int = 5
+@export var cur_hp : int = 20
 @export var knockback_recovery = 3.5
 @export var xp_drop_chance : int = 50 # % percent
 @export var xp_amount : int = 5
