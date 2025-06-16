@@ -18,3 +18,4 @@
 [node name="Attack" parent="." instance=ExtResource("4_83r7m")]
 
 [connection signal="reload_card" from="Attack" to="Play_HUD" method="_on_attack_reload_card"]
+[connection signal="shooted" from="Attack" to="Play_HUD" method="_on_attack_shooted"]
