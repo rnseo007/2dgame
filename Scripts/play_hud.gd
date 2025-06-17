@@ -31,9 +31,6 @@ func _on_attack_reload_card() -> void:
 	if inv_start_x - interval * card_count < inv_end_x:
 		interval = (inv_start_x - inv_end_x) / float(card_count - 1)
 	
-	#print("Card list : ", card_list, "/ Card Count : ", card_count)
-	#print("interval = ", interval)
-	
 	for i in range(0, card_count):
 		var new_card_base = TextureRect.new()
 		
@@ -44,21 +41,39 @@ func _on_attack_reload_card() -> void:
 		new_card_base.position.y = 510.0
 		new_card_base.position.x = 1090.0 #inv_start_x - interval * i
 		new_card_base.pivot_offset = new_card_base.size / 2.0
-		new_card_base.scale = Vector2(0.5, 0.5)
+		new_card_base.scale = Vector2(0.9, 0.9)
 		
 		add_child(new_card_base)
 		cur_cards.append(new_card_base)
 		
-		var duration = attack.reload_time / attack.max_ammo
+		var duration : float = attack.reload_time / attack.max_ammo
+		print(duration, "> ", duration*i, " : ", attack.reload_time)
 		var tween = get_tree().create_tween()
-		tween.tween_property(new_card_base, "position", Vector2(inv_start_x - interval * i, 510.0), duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_interval(duration*i)
+		if i > 0:
+			tween.tween_property(new_card_base, "position", Vector2(inv_start_x - interval * i, 510.0), duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT).finished.connect(Callable(self, "_on_prev_card_darken").bind(cur_cards[i-1]))
+		else:
+			tween.tween_property(new_card_base, "position", Vector2(inv_start_x - interval * i, 510.0), duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
 		tween.tween_property(new_card_base, "scale", Vector2(1.0, 1.0), duration).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		#await get_tree().create_timer(duration).timeout
 		
-		#print(attack.reload_time / attack.max_ammo)
-		await get_tree().create_timer(duration).timeout
-	print(cur_cards.size())
+
+func _on_prev_card_darken(card):
+	if is_instance_valid(card):
+		var tween = get_tree().create_tween()
+		tween.tween_property(card, "modulate", Color(0.5,0.5,0.5), 0.1)
 
 func _on_attack_shooted() -> void:
-	#print("shooted")
-	cur_cards[cur_cards.size()-1].queue_free()
-	cur_cards.pop_back()
+	var used_card = cur_cards[cur_cards.size()-1]
+	cur_cards.erase(used_card)
+	if cur_cards.size() > 0:
+		cur_cards[cur_cards.size()-1].modulate = Color(1,1,1)
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(used_card, "position", Vector2(used_card.position.x, used_card.position.y - 50), 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(used_card, "modulate", Color(1, 1, 1, 0), 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.finished.connect(Callable(self, "_on_card_tween_finished").bind(used_card))
+
+func _on_card_tween_finished(uc):
+	if is_instance_valid(uc):
+		uc.queue_free()

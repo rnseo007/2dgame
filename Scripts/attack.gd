@@ -12,11 +12,11 @@ signal reload_card
 signal shooted
 
 #Card
-var cur_ammo = 0
-var max_ammo = 6
-var attack_speed = 0.5
-var reload_time = 3.0
-var inv_max = 36
+var cur_ammo : int = 0
+var max_ammo : int = 50
+var attack_speed : float = 0.1
+var reload_time : float = 5.0
+var inv_max : int = 36
 
 #Attack Card List
 var inv_card_list : Array = []
