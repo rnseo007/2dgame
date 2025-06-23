@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b7bkqi52340cw"]
 
-[ext_resource type="Script" uid="uid://ls5hm20ti0qp" path="res://Scripts/play_hud.gd" id="1_i1abf"]
+[ext_resource type="Script" uid="uid://ls5hm20ti0qp" path="res://Scripts/Hud/play_hud.gd" id="1_i1abf"]
 [ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="1_o33u0"]
 [ext_resource type="Texture2D" uid="uid://dhsagceuhckah" path="res://assets/Card/Cards/blankcard.png" id="3_mlhd2"]
 

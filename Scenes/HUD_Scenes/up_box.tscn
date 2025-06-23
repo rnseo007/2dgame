@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdo3sashhyy7k"]
+
+[ext_resource type="Shader" uid="uid://d0lvvnme1rwy" path="res://Scenes/HUD_Scenes/up_box.gdshader" id="1_dh8tx"]
+[ext_resource type="Texture2D" uid="uid://bmg8g23v8edwp" path="res://assets/Card/card frames/base 8.png" id="1_f5qn8"]
+[ext_resource type="Script" uid="uid://uq35k6tihsry" path="res://Scripts/Hud/up_box.gd" id="2_dh8tx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dqnkf"]
+resource_local_to_scene = true
+shader = ExtResource("1_dh8tx")
+shader_parameter/outline_width = 1.0
+shader_parameter/outline_color = Vector4(1, 1, 1, 1)
+shader_parameter/outline_enabled = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqnkf"]
+size = Vector2(248, 372)
+
+[node name="UpBox" type="TextureRect"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_dqnkf")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.0
+offset_top = -186.0
+offset_right = 124.0
+offset_bottom = 186.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(124, 186)
+texture = ExtResource("1_f5qn8")
+script = ExtResource("2_dh8tx")
+
+[node name="Area2D" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(124, 186)
+shape = SubResource("RectangleShape2D_dqnkf")
