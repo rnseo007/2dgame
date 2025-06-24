@@ -14,4 +14,4 @@ func _ready() -> void:
 		new_up_box.position.x += 327.0 * i
 		new_up_box.card_texture = card_texture.get("gold")
 		add_child(new_up_box)
-		print("Generated! : ", i, "position :" , new_up_box.position)
+		print("Generated! : ", i, " / position :" , new_up_box.position)
