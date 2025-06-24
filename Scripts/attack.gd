@@ -15,7 +15,7 @@ signal shooted
 var cur_ammo : int = 0
 var max_ammo : int = 50
 var attack_speed : float = 0.1
-var reload_time : float = 5.0
+var reload_time : float = 2.0
 var inv_max : int = 36
 
 #Attack Card List
