@@ -14,7 +14,7 @@ func _ready() -> void:
 		new_up_box.position.x += 327.0 * i
 		new_up_box.card_texture = card_texture.get("gold")
 		new_up_box.card_name = "Test %d" % [i]
-		add_child(new_up_box)
+		call_deferred("add_child", new_up_box)
 		new_up_box.clicked.connect(Callable(self, "_on_card_clicked").bind(new_up_box))
 		#print("Generated! : ", i, " / position :" , new_up_box.position)
 
