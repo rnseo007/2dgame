@@ -9,7 +9,7 @@ extends CanvasLayer
 @onready var level_label = $Xp_bar/Level
 
 var inv_end_x = 388.0
-var inv_start_x = 986.0
+var inv_start_x = 900.0
 
 var cur_cards : Array = []
 
@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func level_up() -> void:
 	update()
-	get_parent().add_child(level_up_hud.instantiate())
+	add_child(level_up_hud.instantiate())
 	if not get_tree().paused:
 		get_tree().paused = true
 

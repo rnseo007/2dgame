@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 var up_box = preload("res://Scenes/HUD_Scenes/up_box.tscn")
 
@@ -9,6 +9,7 @@ var card_texture = {
 }
 
 func _ready() -> void:
+	mouse_filter = Control.MOUSE_FILTER_PASS
 	for i in range(-1, 2):
 		var new_up_box = up_box.instantiate()
 		new_up_box.position.x += 327.0 * i
