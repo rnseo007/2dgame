@@ -3,20 +3,12 @@ extends TextureRect
 signal clicked
 
 @onready var area2d = $Area2D
-@onready var name_label = $NameText
-@onready var descript_label = $DescriptText
 @onready var anim = $AnimationPlayer
-
-var card_name : String = "<NAME>"
-var card_descript : String = "<descript>"
 
 var card_texture = preload("res://assets/Card/card frames/base 8.png")
 
 func _ready() -> void:
 	texture = card_texture
-	
-	name_label.text = card_name
-	descript_label.text = card_descript
 	
 	area2d.mouse_entered.connect(_on_mouse_entered)
 	area2d.mouse_exited.connect(_on_mouse_exited)

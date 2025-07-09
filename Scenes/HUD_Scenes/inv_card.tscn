@@ -1,13 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://bdo3sashhyy7k"]
+[gd_scene load_steps=10 format=3 uid="uid://d3myw714we70r"]
 
-[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://Scenes/HUD_Scenes/highlight.gdshader" id="1_dqnkf"]
-[ext_resource type="Texture2D" uid="uid://bmg8g23v8edwp" path="res://assets/Card/card frames/base 8.png" id="1_f5qn8"]
-[ext_resource type="Script" uid="uid://uq35k6tihsry" path="res://Scripts/Hud/up_box.gd" id="2_dh8tx"]
-[ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="4_dqnkf"]
+[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://Scenes/HUD_Scenes/highlight.gdshader" id="1_3bte7"]
+[ext_resource type="Texture2D" uid="uid://bmg8g23v8edwp" path="res://assets/Card/card frames/base 8.png" id="2_fgi0j"]
+[ext_resource type="Script" uid="uid://b3cyiopbl45je" path="res://Scripts/Hud/inv_card.gd" id="3_54v3k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dqnkf"]
 resource_local_to_scene = true
-shader = ExtResource("1_dqnkf")
+shader = ExtResource("1_3bte7")
 shader_parameter/outline_width = 1.0
 shader_parameter/outline_color = Vector4(1, 1, 1, 1)
 shader_parameter/outline_enabled = false
@@ -69,7 +68,7 @@ _data = {
 &"RESET": SubResource("Animation_mew3x")
 }
 
-[node name="UpBox" type="TextureRect"]
+[node name="InvCard" type="TextureRect"]
 z_index = 20
 texture_filter = 1
 material = SubResource("ShaderMaterial_dqnkf")
@@ -87,8 +86,8 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(124, 186)
 mouse_default_cursor_shape = 2
-texture = ExtResource("1_f5qn8")
-script = ExtResource("2_dh8tx")
+texture = ExtResource("2_fgi0j")
+script = ExtResource("3_54v3k")
 
 [node name="Area2D" type="Area2D" parent="."]
 monitoring = false
@@ -97,41 +96,6 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(124, 186)
 shape = SubResource("RectangleShape2D_dqnkf")
-
-[node name="NameText" type="Label" parent="."]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.108871
-anchor_top = 0.47043
-anchor_right = 0.907258
-anchor_bottom = 0.518817
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_dqnkf")
-theme_override_font_sizes/font_size = 16
-text = "<-----NAME----->"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="DescriptText" type="Label" parent="."]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.108871
-anchor_top = 0.524194
-anchor_right = 0.903226
-anchor_bottom = 0.913979
-offset_top = 1.52588e-05
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("4_dqnkf")
-theme_override_font_sizes/font_size = 16
-text = "<Descript>"
-horizontal_alignment = 1
-autowrap_mode = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -1,6 +1,7 @@
 extends Control
 
-var up_box = preload("res://Scenes/HUD_Scenes/up_box.tscn")
+@onready var up_box = preload("res://Scenes/HUD_Scenes/up_box.tscn")
+@onready var h_container = $HBoxContainer
 
 var card_texture = {
 	"gold" : preload("res://assets/Card/card frames/base 5.png"),
@@ -12,10 +13,9 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	for i in range(-1, 2):
 		var new_up_box = up_box.instantiate()
-		new_up_box.position.x += 327.0 * i
 		new_up_box.card_texture = card_texture.get("gold")
 		new_up_box.card_name = "Test %d" % [i]
-		call_deferred("add_child", new_up_box)
+		h_container.call_deferred("add_child", new_up_box)
 		new_up_box.clicked.connect(Callable(self, "_on_card_clicked").bind(new_up_box))
 		#print("Generated! : ", i, " / position :" , new_up_box.position)
 
