@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccomo7mnb7ppg"]
+[gd_scene load_steps=3 format=3 uid="uid://ccomo7mnb7ppg"]
 
 [ext_resource type="Script" uid="uid://dmejcchdvdbh3" path="res://Scripts/Hud/inventory_ui.gd" id="1_dclje"]
+[ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="2_woesh"]
 
 [node name="InventoryUI" type="Control"]
 layout_mode = 3
@@ -17,7 +18,7 @@ clip_contents = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.05
+anchor_top = 0.11
 anchor_right = 0.5
 anchor_bottom = 0.95
 offset_left = -15.0
@@ -38,3 +39,27 @@ layout_mode = 2
 theme_override_constants/h_separation = 30
 theme_override_constants/v_separation = 30
 columns = 4
+
+[node name="text_background" type="ColorRect" parent="."]
+z_index = 25
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 71.0
+grow_horizontal = 2
+mouse_filter = 1
+color = Color(0.1972, 0.358133, 0.68, 1)
+
+[node name="card_text" type="Label" parent="."]
+z_index = 26
+texture_filter = 1
+layout_mode = 0
+offset_left = 15.0
+offset_top = 7.0
+offset_right = 235.0
+offset_bottom = 71.0
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_woesh")
+theme_override_font_sizes/font_size = 64
+text = "CARD : 0"
