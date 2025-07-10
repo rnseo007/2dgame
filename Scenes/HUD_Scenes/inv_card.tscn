@@ -12,7 +12,7 @@ shader_parameter/outline_color = Vector4(1, 1, 1, 1)
 shader_parameter/outline_enabled = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqnkf"]
-size = Vector2(248, 372)
+size = Vector2(82.667, 124)
 
 [sub_resource type="Animation" id="Animation_jebdu"]
 resource_name = "DeHighlight"
@@ -72,19 +72,19 @@ _data = {
 z_index = 20
 texture_filter = 1
 material = SubResource("ShaderMaterial_dqnkf")
-custom_minimum_size = Vector2(248, 372)
+custom_minimum_size = Vector2(82.667, 124)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -124.0
-offset_top = -186.0
-offset_right = 124.0
-offset_bottom = 186.0
+offset_left = -41.3335
+offset_top = -62.0
+offset_right = 41.3335
+offset_bottom = 62.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(124, 186)
+pivot_offset = Vector2(41.333, 62)
 mouse_default_cursor_shape = 2
 texture = ExtResource("2_fgi0j")
 script = ExtResource("3_54v3k")
@@ -94,7 +94,7 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(124, 186)
+position = Vector2(41.333, 62)
 shape = SubResource("RectangleShape2D_dqnkf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -11,7 +11,7 @@ var card_texture = {
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_PASS
-	for i in range(-1, 2):
+	for i in range(0, 3):
 		var new_up_box = up_box.instantiate()
 		new_up_box.card_texture = card_texture.get("gold")
 		new_up_box.card_name = "Test %d" % [i]

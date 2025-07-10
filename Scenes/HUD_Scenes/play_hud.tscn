@@ -1,11 +1,27 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7bkqi52340cw"]
+[gd_scene load_steps=19 format=3 uid="uid://b7bkqi52340cw"]
 
 [ext_resource type="Script" uid="uid://ls5hm20ti0qp" path="res://Scripts/Hud/play_hud.gd" id="1_i1abf"]
 [ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="1_o33u0"]
+[ext_resource type="Script" uid="uid://dyitp8l0ifjv1" path="res://Scripts/Hud/card_resource.gd" id="2_alek1"]
+[ext_resource type="Texture2D" uid="uid://dq0ja5bmg86gi" path="res://assets/Card/Cards/firecard.png" id="3_alek1"]
 [ext_resource type="Texture2D" uid="uid://dhsagceuhckah" path="res://assets/Card/Cards/blankcard.png" id="3_mlhd2"]
 [ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://Scenes/HUD_Scenes/highlight.gdshader" id="4_mpb4m"]
 [ext_resource type="Texture2D" uid="uid://c3to1r3s7ncq6" path="res://assets/inven_icon.png" id="5_sywih"]
 [ext_resource type="Script" uid="uid://bbm7qx5cfq56i" path="res://Scripts/Hud/inven_icon.gd" id="6_sywih"]
+
+[sub_resource type="Resource" id="Resource_vbkmq"]
+script = ExtResource("2_alek1")
+card_title = "Fire Bolt"
+card_descript = "shoot fire bolt"
+card_texture = ExtResource("3_alek1")
+metadata/_custom_type_script = "uid://dyitp8l0ifjv1"
+
+[sub_resource type="Resource" id="Resource_alek1"]
+script = ExtResource("2_alek1")
+card_title = "Blank Card"
+card_descript = "nothing"
+card_texture = ExtResource("3_mlhd2")
+metadata/_custom_type_script = "uid://dyitp8l0ifjv1"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o33u0"]
 bg_color = Color(0, 0, 0, 0.313726)
@@ -78,6 +94,10 @@ _data = {
 
 [node name="Play_HUD" type="CanvasLayer"]
 script = ExtResource("1_i1abf")
+card_list = Dictionary[String, ExtResource("2_alek1")]({
+"blank": SubResource("Resource_alek1"),
+"fire_bolt": SubResource("Resource_vbkmq")
+})
 
 [node name="Hp" type="Label" parent="."]
 z_index = 5

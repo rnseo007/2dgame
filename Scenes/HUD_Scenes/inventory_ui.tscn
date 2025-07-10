@@ -14,39 +14,37 @@ mouse_filter = 1
 script = ExtResource("1_dclje")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-clip_contents = false
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.11
-anchor_right = 0.5
-anchor_bottom = 0.95
-offset_left = -15.0
-offset_right = 15.0
-grow_horizontal = 2
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 59.0
+offset_right = 60.0
+offset_bottom = -13.0
 grow_vertical = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 30
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="GridContainer" type="GridContainer" parent="ScrollContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 30
-theme_override_constants/v_separation = 30
-columns = 4
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 7
 
 [node name="text_background" type="ColorRect" parent="."]
+visible = false
 z_index = 25
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 71.0
+offset_bottom = 50.0
 grow_horizontal = 2
 mouse_filter = 1
 color = Color(0.1972, 0.358133, 0.68, 1)
@@ -54,12 +52,23 @@ color = Color(0.1972, 0.358133, 0.68, 1)
 [node name="card_text" type="Label" parent="."]
 z_index = 26
 texture_filter = 1
-layout_mode = 0
-offset_left = 15.0
-offset_top = 7.0
-offset_right = 235.0
-offset_bottom = 71.0
+layout_mode = 1
+offset_left = 20.0
+offset_top = 15.0
+offset_right = 130.0
+offset_bottom = 47.0
 mouse_filter = 1
 theme_override_fonts/font = ExtResource("2_woesh")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 32
 text = "CARD : 0"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -581.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0, 0, 0, 0.215686)
