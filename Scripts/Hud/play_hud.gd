@@ -5,10 +5,13 @@ extends CanvasLayer
 @onready var player = get_tree().get_first_node_in_group("Player")
 @onready var attack = get_tree().root.get_node("Main/Attack")
 @onready var level_up_hud = preload("res://Scenes/HUD_Scenes/level_up_hud.tscn")
+@onready var inventory_ui = preload("res://Scenes/HUD_Scenes/inventory_ui.tscn")
+@onready var inventory_icon = $InvenIcon
 @onready var hp_label = $Hp
 @onready var card_label = $Card
 @onready var xp_progress_bar = $Xp_bar
 @onready var level_label = $Xp_bar/Level
+@onready var hand = $HandCardsDisplay
 
 var inv_end_x = 388.0
 var inv_start_x = 900.0
@@ -22,6 +25,9 @@ var inv_card_texture = {
 
 func _ready() -> void:
 	player.levelup.connect(level_up)
+	attack.reload_card.connect(_on_attack_reload_card)
+	attack.shooted.connect(_on_attack_shooted)
+	inventory_icon.clicked.connect(_pop_up_inventory)
 
 func level_up() -> void:
 	update()
@@ -53,13 +59,13 @@ func _on_attack_reload_card() -> void:
 		new_card_base.texture = card_list.get(card_list_keys.get(i)).card_texture
 		new_card_base.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		
-		new_card_base.size = Vector2(150.0, 150.0)
+		new_card_base.size = Vector2(100.0, 150.0)
 		new_card_base.position.y = 510.0
 		new_card_base.position.x = 1090.0 #inv_start_x - interval * i
 		new_card_base.pivot_offset = new_card_base.size / 2.0
 		new_card_base.scale = Vector2(0.9, 0.9)
 		
-		add_child(new_card_base)
+		hand.add_child(new_card_base)
 		cur_cards.append(new_card_base)
 		
 		#print(duration, "> ", duration*i, " : ", attack.reload_time)
@@ -90,3 +96,11 @@ func _on_attack_shooted() -> void:
 func _on_card_tween_finished(uc):
 	if is_instance_valid(uc):
 		uc.queue_free()
+
+func _pop_up_inventory() -> void:
+	var new_inventory = inventory_ui.instantiate()
+	new_inventory.inv_card_list = attack.inv_card_list
+	new_inventory.card_list = card_list
+	add_child(new_inventory)
+	if not get_tree().paused:
+		get_tree().paused = true

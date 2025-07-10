@@ -1,11 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://b7bkqi52340cw"]
+[gd_scene load_steps=20 format=3 uid="uid://b7bkqi52340cw"]
 
 [ext_resource type="Script" uid="uid://ls5hm20ti0qp" path="res://Scripts/Hud/play_hud.gd" id="1_i1abf"]
 [ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="1_o33u0"]
 [ext_resource type="Script" uid="uid://dyitp8l0ifjv1" path="res://Scripts/Hud/card_resource.gd" id="2_alek1"]
-[ext_resource type="Texture2D" uid="uid://dq0ja5bmg86gi" path="res://assets/Card/Cards/firecard.png" id="3_alek1"]
+[ext_resource type="Texture2D" uid="uid://cr5u1tdqv7h5s" path="res://assets/Card/card frames/base 7.png" id="3_8djby"]
 [ext_resource type="Texture2D" uid="uid://dhsagceuhckah" path="res://assets/Card/Cards/blankcard.png" id="3_mlhd2"]
 [ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://Scenes/HUD_Scenes/highlight.gdshader" id="4_mpb4m"]
+[ext_resource type="Texture2D" uid="uid://b1mq2mle1i7u2" path="res://assets/Card/card frames/base 16.png" id="4_vbkmq"]
 [ext_resource type="Texture2D" uid="uid://c3to1r3s7ncq6" path="res://assets/inven_icon.png" id="5_sywih"]
 [ext_resource type="Script" uid="uid://bbm7qx5cfq56i" path="res://Scripts/Hud/inven_icon.gd" id="6_sywih"]
 
@@ -13,14 +14,14 @@
 script = ExtResource("2_alek1")
 card_title = "Fire Bolt"
 card_descript = "shoot fire bolt"
-card_texture = ExtResource("3_alek1")
+card_texture = ExtResource("3_8djby")
 metadata/_custom_type_script = "uid://dyitp8l0ifjv1"
 
 [sub_resource type="Resource" id="Resource_alek1"]
 script = ExtResource("2_alek1")
 card_title = "Blank Card"
 card_descript = "nothing"
-card_texture = ExtResource("3_mlhd2")
+card_texture = ExtResource("4_vbkmq")
 metadata/_custom_type_script = "uid://dyitp8l0ifjv1"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o33u0"]
@@ -181,6 +182,12 @@ grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("3_mlhd2")
 
+[node name="HandCardsDisplay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="InvenIcon" type="TextureRect" parent="."]
 z_index = 10
 texture_filter = 1
@@ -197,6 +204,7 @@ offset_bottom = -35.0
 grow_horizontal = 0
 grow_vertical = 0
 pivot_offset = Vector2(100, 100)
+mouse_default_cursor_shape = 2
 texture = ExtResource("5_sywih")
 script = ExtResource("6_sywih")
 

@@ -5,10 +5,10 @@ signal clicked
 @onready var area2d = $Area2D
 @onready var anim = $AnimationPlayer
 
-var card_texture = preload("res://assets/Card/card frames/base 8.png")
+var card_texture : Texture2D
 
 func _ready() -> void:
-	texture = card_texture
+	#texture = card_texture
 	
 	area2d.mouse_entered.connect(_on_mouse_entered)
 	area2d.mouse_exited.connect(_on_mouse_exited)
