@@ -8,6 +8,7 @@ class_name AttackControl
 @onready var reloadTimer = $ReloadTimer
 @onready var attackTimer = $AttackTimer
 
+#call play hud
 signal reload_card
 signal shooted
 
@@ -27,10 +28,13 @@ var card_list = {
 }
 
 func _ready() -> void:
+	#inventory reset
+	#inv_card_list will have only list keys
 	for i in range(0, inv_max):
 		inv_card_list.append(card_list.keys().pick_random())
 	print(inv_card_list.size())
 	
+	#hands card get(reset)
 	for i in range(0, max_ammo):
 		cur_card_list.append(inv_card_list.pick_random())
 	reload_card.emit()

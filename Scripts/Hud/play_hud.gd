@@ -13,15 +13,12 @@ extends CanvasLayer
 @onready var level_label = $Xp_bar/Level
 @onready var hand = $HandCardsDisplay
 
+#패 display position
 var inv_end_x = 388.0
 var inv_start_x = 900.0
 
+#current cards array
 var cur_cards : Array = []
-
-var inv_card_texture = {
-	"blank" : preload("res://assets/Card/Cards/blankcard.png"),
-	"fire_bolt" : preload("res://assets/Card/Cards/firecard.png")
-}
 
 func _ready() -> void:
 	player.levelup.connect(level_up)
@@ -29,12 +26,15 @@ func _ready() -> void:
 	attack.shooted.connect(_on_attack_shooted)
 	inventory_icon.clicked.connect(_pop_up_inventory)
 
+#player call -> level up function
 func level_up() -> void:
 	update()
 	add_child(level_up_hud.instantiate())
+	#pause
 	if not get_tree().paused:
 		get_tree().paused = true
 
+#display update
 func update() -> void:
 	hp_label.text = "HP : {0}".format({0:player.hp})
 	card_label.text = "CARD : %03d / %03d" % [attack.cur_ammo, attack.max_ammo]
@@ -45,6 +45,8 @@ func update() -> void:
 func _process(_delta: float) -> void:
 	update()
 
+#attack node call(reload_card)
+#cur_card_list = inv_card_list array's key
 func _on_attack_reload_card() -> void:
 	var card_list_keys : Array = attack.cur_card_list
 	var card_count : int = card_list_keys.size()
@@ -97,6 +99,7 @@ func _on_card_tween_finished(uc):
 	if is_instance_valid(uc):
 		uc.queue_free()
 
+#inventory pop up
 func _pop_up_inventory() -> void:
 	var new_inventory = inventory_ui.instantiate()
 	new_inventory.inv_card_list = attack.inv_card_list

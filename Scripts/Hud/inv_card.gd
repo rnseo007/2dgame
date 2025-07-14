@@ -6,10 +6,11 @@ signal clicked
 @onready var anim = $AnimationPlayer
 
 var card_texture : Texture2D
+var card_name : String
 
 func _ready() -> void:
-	#texture = card_texture
-	
+	if card_texture != null:
+		texture = card_texture
 	area2d.mouse_entered.connect(_on_mouse_entered)
 	area2d.mouse_exited.connect(_on_mouse_exited)
 

@@ -10,18 +10,18 @@
 [ext_resource type="Texture2D" uid="uid://c3to1r3s7ncq6" path="res://assets/inven_icon.png" id="5_sywih"]
 [ext_resource type="Script" uid="uid://bbm7qx5cfq56i" path="res://Scripts/Hud/inven_icon.gd" id="6_sywih"]
 
-[sub_resource type="Resource" id="Resource_vbkmq"]
-script = ExtResource("2_alek1")
-card_title = "Fire Bolt"
-card_descript = "shoot fire bolt"
-card_texture = ExtResource("3_8djby")
-metadata/_custom_type_script = "uid://dyitp8l0ifjv1"
-
 [sub_resource type="Resource" id="Resource_alek1"]
 script = ExtResource("2_alek1")
 card_title = "Blank Card"
 card_descript = "nothing"
 card_texture = ExtResource("4_vbkmq")
+metadata/_custom_type_script = "uid://dyitp8l0ifjv1"
+
+[sub_resource type="Resource" id="Resource_vbkmq"]
+script = ExtResource("2_alek1")
+card_title = "Fire Bolt"
+card_descript = "shoot fire bolt"
+card_texture = ExtResource("3_8djby")
 metadata/_custom_type_script = "uid://dyitp8l0ifjv1"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o33u0"]
