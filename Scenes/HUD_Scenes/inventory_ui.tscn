@@ -1,7 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccomo7mnb7ppg"]
+[gd_scene load_steps=7 format=3 uid="uid://ccomo7mnb7ppg"]
 
 [ext_resource type="Script" uid="uid://dmejcchdvdbh3" path="res://Scripts/Hud/inventory_ui.gd" id="1_dclje"]
 [ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="2_woesh"]
+[ext_resource type="PackedScene" uid="uid://bres6jib3lgt7" path="res://Scenes/HUD_Scenes/picked_card.tscn" id="3_76qqu"]
+[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://Scenes/HUD_Scenes/highlight.gdshader" id="4_hdbsw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdbsw"]
+resource_local_to_scene = true
+shader = ExtResource("4_hdbsw")
+shader_parameter/outline_width = 1.0
+shader_parameter/outline_color = Vector4(1, 1, 1, 1)
+shader_parameter/outline_enabled = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uoyh8"]
+resource_local_to_scene = true
+shader = ExtResource("4_hdbsw")
+shader_parameter/outline_width = 1.0
+shader_parameter/outline_color = Vector4(1, 1, 1, 1)
+shader_parameter/outline_enabled = false
 
 [node name="InventoryUI" type="Control"]
 process_mode = 3
@@ -28,6 +44,7 @@ mouse_filter = 2
 color = Color(0.132873, 0.222935, 0.265287, 0.823529)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+z_index = 50
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -97,4 +114,17 @@ theme_override_constants/margin_left = 100
 theme_override_constants/margin_right = 100
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FusioGround/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PickedCard1" parent="FusioGround/MarginContainer/HBoxContainer" instance=ExtResource("3_76qqu")]
+material = SubResource("ShaderMaterial_hdbsw")
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="FusioGround/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+
+[node name="PickedCard2" parent="FusioGround/MarginContainer/HBoxContainer" instance=ExtResource("3_76qqu")]
+material = SubResource("ShaderMaterial_uoyh8")
 layout_mode = 2

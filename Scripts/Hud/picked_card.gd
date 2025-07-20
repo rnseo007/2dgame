@@ -1,18 +1,16 @@
 extends TextureRect
 
-signal clicked
-
 @onready var area2d = $Area2D
 @onready var anim = $AnimationPlayer
+@onready var collision2d = $Area2D/CollisionShape2D
 
-var card_texture : Texture2D
-var id : int
+var get_id : int
 
 func _ready() -> void:
-	if card_texture != null:
-		texture = card_texture
 	area2d.mouse_entered.connect(_on_mouse_entered)
 	area2d.mouse_exited.connect(_on_mouse_exited)
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	collision2d.disabled = true
 
 func _on_mouse_entered() -> void:
 	anim.play("Highlight")
@@ -24,4 +22,16 @@ func _on_mouse_exited() -> void:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			clicked.emit()
+			_lost_card()
+
+func _get_new_card():
+	mouse_filter = Control.MOUSE_FILTER_PASS
+	collision2d.disabled = false
+	anim.play("GetNewCard")
+
+func _lost_card():
+	texture = null
+	get_id = -1
+	anim.play("LostCard")
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	collision2d.disabled = true
