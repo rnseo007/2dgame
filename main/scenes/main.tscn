@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1nhxlovmsx53"]
+
+[ext_resource type="PackedScene" uid="uid://b7bkqi52340cw" path="res://hud/scenes/play_hud.tscn" id="1_l5yy4"]
+[ext_resource type="PackedScene" uid="uid://cwtjculhnmds1" path="res://main/scenes/enemy_spawner.tscn" id="2_ekxmg"]
+[ext_resource type="PackedScene" uid="uid://dtrgo1xqwerm0" path="res://player/scenes/Player.tscn" id="3_hu7y7"]
+[ext_resource type="PackedScene" uid="uid://b3rqc2fq4a257" path="res://main/scenes/attack.tscn" id="4_83r7m"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Loot" type="Node2D" parent="." groups=["Loot"]]
+
+[node name="Play_HUD" parent="." instance=ExtResource("1_l5yy4")]
+
+[node name="EnemySpawner" parent="." instance=ExtResource("2_ekxmg")]
+
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("3_hu7y7")]
+
+[node name="Attack" parent="." instance=ExtResource("4_83r7m")]

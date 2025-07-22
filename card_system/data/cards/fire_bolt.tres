@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://do5la6yipflx1"]
+
+[ext_resource type="Script" uid="uid://djoircvvvw82h" path="res://card_system/scripts/card_data.gd" id="1_4ap45"]
+[ext_resource type="Script" uid="uid://bmu5x7dcjykjs" path="res://card_system/scripts/ability_data.gd" id="1_021dc"]
+[ext_resource type="Texture2D" uid="uid://d0p8y76jp36u5" path="res://assets/Card/card frames/base 10.png" id="1_ndfmf"]
+[ext_resource type="Resource" uid="uid://dc3jfjp18kpmn" path="res://card_system/data/abilities/burn.tres" id="2_50av0"]
+[ext_resource type="PackedScene" uid="uid://dfx27jtc2l7gj" path="res://card_system/data/particles/fire_bolt_trail.tscn" id="4_o6y71"]
+
+[resource]
+script = ExtResource("1_4ap45")
+id = "fire_bolt"
+display_name = "Fire Bolt"
+description = "Shoot the fire bolt"
+icon = ExtResource("1_ndfmf")
+knock_amount = 200.0
+attack_size = 1.0
+speed = 300.0
+damage = 8
+particles = Array[PackedScene]([ExtResource("4_o6y71")])
+abilities = Array[ExtResource("1_021dc")]([ExtResource("2_50av0")])

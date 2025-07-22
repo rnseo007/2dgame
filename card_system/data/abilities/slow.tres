@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=2 format=3 uid="uid://bl1xcxe2iu60v"]
+
+[ext_resource type="Script" uid="uid://bmu5x7dcjykjs" path="res://card_system/scripts/ability_data.gd" id="1_eumsf"]
+
+[resource]
+script = ExtResource("1_eumsf")
+id = 1
+debuff_name = "slow"
+debuff_time = 5.0
+debuff_damage = 50
+debuff_pulse_time = 0.0
+debuff_color = Color(1, 1, 1, 1)

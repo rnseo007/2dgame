@@ -1,9 +1,0 @@
-diff a/Scripts/player.gd b/Scripts/player.gd	(rejected hunks)
-@@ -40,6 +40,7 @@
- 		return
- 	if target == null:
- 		return
-+	
- 	can_Attack = false
- 	
- 	var base_card = normalCard.instantiate()

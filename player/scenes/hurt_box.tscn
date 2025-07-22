@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bm03hx7as0hug"]
+
+[ext_resource type="Script" uid="uid://dp20aerffetg6" path="res://player/scripts/hurt_box.gd" id="1_2ktet"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6qyx1"]
+radius = 19.0
+height = 48.0
+
+[node name="HurtBox" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_2ktet")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_6qyx1")
+
+[node name="DisableTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DisableTimer" to="." method="_on_disable_timer_timeout"]

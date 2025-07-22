@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://5bfaodvryoro"]
+
+[ext_resource type="Script" uid="uid://c2mw62llwb0gu" path="res://card_system/scripts/card_bullet.gd" id="1_ws3ys"]
+[ext_resource type="Texture2D" uid="uid://cuj03f1mrh2iu" path="res://assets/Card/whitebox.png" id="2_nv7iq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nquq1"]
+radius = 4.0
+
+[node name="CardBullet" type="Area2D" groups=["Player_Bullet"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_ws3ys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nquq1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.301664, 0.302023)
+texture = ExtResource("2_nv7iq")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="enemy_hit"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

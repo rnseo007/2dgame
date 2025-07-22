@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://is3f8l1a0tl5"]
+
+[ext_resource type="Script" uid="uid://c2mw62llwb0gu" path="res://card_system/scripts/card_bullet.gd" id="1_gr3yr"]
+[ext_resource type="Texture2D" uid="uid://cuj03f1mrh2iu" path="res://assets/Card/whitebox.png" id="2_2qu6i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nquq1"]
+radius = 4.0
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_2qu6i"]
+constant = Color(1, 0.5, 0, 1)
+
+[sub_resource type="VisualShader" id="VisualShader_rjg06"]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+
+
+
+void fragment() {
+// ColorConstant:3
+	vec4 n_out3p0 = vec4(1.000000, 0.500000, 0.000000, 1.000000);
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out3p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-394.89, -5.72765)
+mode = 1
+flags/light_only = false
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorConstant_2qu6i")
+nodes/fragment/3/position = Vector2(-260, 140)
+nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rut5f"]
+resource_local_to_scene = true
+shader = SubResource("VisualShader_rjg06")
+
+[sub_resource type="Gradient" id="Gradient_gr3yr"]
+offsets = PackedFloat32Array(0, 0.208835, 0.738956, 1)
+colors = PackedColorArray(1, 0.233333, 0, 1, 1, 0.666667, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3wnoh"]
+gradient = SubResource("Gradient_gr3yr")
+
+[sub_resource type="Curve" id="Curve_rjg06"]
+_data = [Vector2(0, 0), 0.0, 19.4654, 0, 0, Vector2(0.138182, 1), 0.0, 0.0, 0, 0, Vector2(0.996364, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kwfci"]
+curve = SubResource("Curve_rjg06")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0a557"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 6.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_kwfci")
+color_ramp = SubResource("GradientTexture1D_3wnoh")
+turbulence_noise_strength = 0.0
+sub_emitter_mode = 1
+sub_emitter_frequency = 4.0
+
+[node name="FireBolt" type="Area2D" groups=["Player_Bullet"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_gr3yr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nquq1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rut5f")
+scale = Vector2(0.301664, 0.302023)
+texture = ExtResource("2_2qu6i")
+
+[node name="FireTrail" type="GPUParticles2D" parent="."]
+amount = 30
+trail_lifetime = 0.8
+process_material = SubResource("ParticleProcessMaterial_0a557")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="enemy_hit"]
+[connection signal="finished" from="FireTrail" to="." method="_on_fire_trail_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

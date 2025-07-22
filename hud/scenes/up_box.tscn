@@ -1,0 +1,139 @@
+[gd_scene load_steps=11 format=3 uid="uid://bdo3sashhyy7k"]
+
+[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://hud/scenes/highlight.gdshader" id="1_dqnkf"]
+[ext_resource type="Texture2D" uid="uid://bmg8g23v8edwp" path="res://assets/Card/card frames/base 8.png" id="1_f5qn8"]
+[ext_resource type="Script" uid="uid://uq35k6tihsry" path="res://hud/scripts/up_box.gd" id="2_dh8tx"]
+[ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="4_dqnkf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dqnkf"]
+resource_local_to_scene = true
+shader = ExtResource("1_dqnkf")
+shader_parameter/outline_width = 1.0
+shader_parameter/outline_color = Vector4(1, 1, 1, 1)
+shader_parameter/outline_enabled = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqnkf"]
+size = Vector2(248, 372)
+
+[sub_resource type="Animation" id="Animation_jebdu"]
+resource_name = "DeHighlight"
+length = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dqnkf"]
+resource_name = "Highlight"
+length = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05)]
+}
+
+[sub_resource type="Animation" id="Animation_mew3x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jevnj"]
+_data = {
+&"DeHighlight": SubResource("Animation_jebdu"),
+&"Highlight": SubResource("Animation_dqnkf"),
+&"RESET": SubResource("Animation_mew3x")
+}
+
+[node name="UpBox" type="TextureRect"]
+z_index = 20
+texture_filter = 1
+material = SubResource("ShaderMaterial_dqnkf")
+custom_minimum_size = Vector2(248, 372)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.0
+offset_top = -186.0
+offset_right = 124.0
+offset_bottom = 186.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(124, 186)
+mouse_default_cursor_shape = 2
+texture = ExtResource("1_f5qn8")
+script = ExtResource("2_dh8tx")
+
+[node name="Area2D" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(124, 186)
+shape = SubResource("RectangleShape2D_dqnkf")
+
+[node name="NameText" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.108871
+anchor_top = 0.47043
+anchor_right = 0.907258
+anchor_bottom = 0.518817
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_dqnkf")
+theme_override_font_sizes/font_size = 16
+text = "<-----NAME----->"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DescriptText" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.108871
+anchor_top = 0.524194
+anchor_right = 0.903226
+anchor_bottom = 0.913979
+offset_top = 1.52588e-05
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_dqnkf")
+theme_override_font_sizes/font_size = 16
+text = "<Descript>"
+horizontal_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jevnj")
+}

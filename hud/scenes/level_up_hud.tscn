@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1sbr430errs4"]
+
+[ext_resource type="Script" uid="uid://noklgg2gq4b3" path="res://hud/scripts/level_up_hud.gd" id="1_gldiv"]
+
+[node name="LevelUpHud" type="Control"]
+process_mode = 3
+z_index = 15
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_gldiv")
+
+[node name="BackGround" type="ColorRect" parent="."]
+z_index = 16
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.309804)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -186.0
+offset_bottom = 186.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 109
+alignment = 1
