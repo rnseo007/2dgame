@@ -22,15 +22,14 @@ var inv_max : int = 36
 #Attack Card List
 var inv_card_list : Array = []
 var cur_card_list : Array = []
-var card_list = {
-	"blank" : preload("res://card_system/scenes/BlankCard.tscn"),
-	"fire_bolt" : preload("res://card_system/scenes/fires/fire_bolt.tscn")
-}
 var card_bullet : PackedScene = preload("res://card_system/scenes/card_bullet.tscn")
+@onready var card_list := preload("res://card_system/data/card_list.tres").card_list_data
+var card_list_data : Array
 
 func _ready() -> void:
 	#inventory reset
 	#inv_card_list will have only list keys
+	
 	for i in range(0, inv_max):
 		inv_card_list.append(card_list.keys().pick_random())
 	print(inv_card_list.size())
@@ -54,11 +53,12 @@ func _on_attack_timer_timeout() -> void:
 	
 	if cur_ammo > 0:
 		#var attack = card_list[cur_card_list[0]].instantiate()
-		var attack = card_bullet.instantiate()
-		attack.position = player.global_position
-		attack.target = get_close_target(enemys)
+		var new_bullet = card_bullet.instantiate()
+		new_bullet.position = player.global_position
+		new_bullet.target = get_close_target(enemys)
 		
-		add_child(attack)
+		
+		add_child(new_bullet)
 		
 		if cur_card_list.size() > 0:
 			cur_card_list.remove_at(0)
