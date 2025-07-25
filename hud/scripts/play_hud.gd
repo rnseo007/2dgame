@@ -104,7 +104,7 @@ func _on_card_tween_finished(uc):
 func _pop_up_inventory() -> void:
 	var new_inventory = inventory_ui.instantiate()
 	new_inventory.inv_card_list = attack.inv_card_list
-	new_inventory.card_list = card_list
+	new_inventory.card_list = card_list.card_list_data
 	add_child(new_inventory)
 	if not get_tree().paused:
 		get_tree().paused = true

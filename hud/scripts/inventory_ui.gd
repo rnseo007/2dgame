@@ -11,12 +11,14 @@ var card_list
 
 func _ready() -> void:
 	var card_count : int = inv_card_list.size()
-	for i in range(0, card_count):
+	var i = 0
+	for card_key in inv_card_list:
 		var new_card = card.instantiate()
-		new_card.card_texture = card_list.get(inv_card_list.get(i)).card_texture
+		new_card.card_texture = card_list.get(card_key).icon
 		new_card.id = i
 		gird_container.call_deferred("add_child", new_card)
 		new_card.clicked.connect(Callable(self, "_on_card_clicked").bind(new_card))
+		i += 1
 	text_display.text = "CARD : %d" % [card_count]
 
 func _on_card_clicked(item):
