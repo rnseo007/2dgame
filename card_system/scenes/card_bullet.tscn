@@ -14,7 +14,9 @@ script = ExtResource("1_ws3ys")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_nquq1")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites"]
 scale = Vector2(0.301664, 0.302023)
 texture = ExtResource("2_nv7iq")
 
@@ -23,7 +25,9 @@ wait_time = 4.0
 one_shot = true
 autostart = true
 
-[node name="Effects" type="Node2D" parent="."]
+[node name="ParticleEffects" type="Node2D" parent="."]
+
+[node name="OtherEffects" type="Node2D" parent="."]
 
 [connection signal="area_entered" from="." to="." method="enemy_hit"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://csuidf1ipcu8a"]
+
+[ext_resource type="Shader" uid="uid://1qh1pvak8qp8" path="res://card_system/data/materials/water_bolt/s_water_bolt.tres" id="1_v467o"]
+
+[resource]
+shader = ExtResource("1_v467o")

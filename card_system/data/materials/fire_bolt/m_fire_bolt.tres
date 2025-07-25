@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dok4go1su0c7k"]
+
+[ext_resource type="Shader" uid="uid://c5o5jg4qtijw5" path="res://card_system/data/materials/fire_bolt/s_fire_bolt.tres" id="1_b0wci"]
+
+[resource]
+shader = ExtResource("1_b0wci")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl81mng5smpat"]
+
+[ext_resource type="Script" uid="uid://dyfs03cmebyko" path="res://card_system/scripts/line_trail.gd" id="1_pjpnd"]
+
+[sub_resource type="Curve" id="Curve_lqxfj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.994681, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_45e0r"]
+colors = PackedColorArray(0, 0, 1, 0, 0, 0.67451, 1, 1)
+
+[node name="Line2D" type="Line2D"]
+top_level = true
+points = PackedVector2Array(0, 0, 15, 0)
+width = 5.0
+width_curve = SubResource("Curve_lqxfj")
+gradient = SubResource("Gradient_45e0r")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+script = ExtResource("1_pjpnd")

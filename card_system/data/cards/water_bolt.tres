@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=5 format=3 uid="uid://b17pb8pcjb5ta"]
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://b17pb8pcjb5ta"]
 
-[ext_resource type="Script" uid="uid://bmu5x7dcjykjs" path="res://card_system/scripts/ability_data.gd" id="1_55cl7"]
 [ext_resource type="Resource" uid="uid://bl1xcxe2iu60v" path="res://card_system/data/abilities/slow.tres" id="2_eb3mx"]
 [ext_resource type="Texture2D" uid="uid://nia0w2dysevm" path="res://assets/Card/card frames/base 12.png" id="2_uuw6r"]
 [ext_resource type="Script" uid="uid://djoircvvvw82h" path="res://card_system/scripts/card_data.gd" id="3_eb3mx"]
+[ext_resource type="Material" uid="uid://csuidf1ipcu8a" path="res://card_system/data/materials/water_bolt/m_water_bolt.tres" id="4_xsh0d"]
+[ext_resource type="PackedScene" uid="uid://cl81mng5smpat" path="res://card_system/scenes/water_bolt/water_bolt_line_trail.tscn" id="5_uqae8"]
 
 [resource]
 script = ExtResource("3_eb3mx")
@@ -14,6 +15,9 @@ icon = ExtResource("2_uuw6r")
 knock_amount = 200.0
 attack_size = 1.0
 speed = 300.0
-damage = 8
-pacticles = Array[PackedScene]([])
-abilities = Array[ExtResource("1_55cl7")]([ExtResource("2_eb3mx")])
+damage = 1
+collision_size = 4.0
+material = ExtResource("4_xsh0d")
+pacticle_effects = Array[PackedScene]([])
+other_effects = Array[PackedScene]([ExtResource("5_uqae8")])
+abilities = ExtResource("2_eb3mx")

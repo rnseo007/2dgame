@@ -11,6 +11,8 @@ class_name CardData
 @export var attack_size : float
 @export var speed : float
 @export var damage : int
+@export var collision_size : float = 4.0
 @export var material : Material
-@export var pacticles : Array[PackedScene]
-@export var abilities: Array[AbilityData]
+@export var pacticle_effects : Array[PackedScene]
+@export var other_effects : Array[PackedScene]
+@export var abilities: AbilityData

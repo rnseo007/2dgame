@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://dswfobaft0r5x" path="res://enemy/shaders/Hit_flash.tres" id="2_aik1y"]
 [ext_resource type="Texture2D" uid="uid://cnbsfn7eerxp5" path="res://assets/Enemy/Orc/Orc-Walk.png" id="3_0lfw3"]
 [ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="4_tbjim"]
-[ext_resource type="PackedScene" uid="uid://dy7lweloxwato" path="res://enemy/scenes/hit_box.tscn" id="5_mgbwo"]
+[ext_resource type="PackedScene" uid="uid://bmtqqcev8ahoq" path="res://enemy/scenes/hit_box.tscn" id="5_mgbwo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1exfc"]
 resource_local_to_scene = true
