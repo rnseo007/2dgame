@@ -15,5 +15,5 @@ knock_amount = 200.0
 attack_size = 1.0
 speed = 300.0
 damage = 8
-particles = Array[PackedScene]([])
+pacticles = Array[PackedScene]([])
 abilities = Array[ExtResource("1_55cl7")]([ExtResource("2_eb3mx")])

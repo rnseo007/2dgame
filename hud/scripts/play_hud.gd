@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@export var card_list : Dictionary[String, CardResource] = {}
+@onready var card_list = preload("res://card_system/data/total_data/card_list.tres")
 
 @onready var player = get_tree().get_first_node_in_group("Player")
 @onready var attack = get_tree().root.get_node("Main/Attack")
@@ -48,8 +48,10 @@ func _process(_delta: float) -> void:
 #attack node call(reload_card)
 #cur_card_list = inv_card_list array's key
 func _on_attack_reload_card() -> void:
+	#attack의 cur_card_list 는 리스트 키 값만 가지고 있음
 	var card_list_keys : Array = attack.cur_card_list
 	var card_count : int = card_list_keys.size()
+	#카드 간격
 	var interval : float = 50.0
 	var duration : float = attack.reload_time / attack.max_ammo
 	if inv_start_x - interval * card_count < inv_end_x:
@@ -57,8 +59,7 @@ func _on_attack_reload_card() -> void:
 	
 	for i in range(0, card_count):
 		var new_card_base = TextureRect.new()
-		
-		new_card_base.texture = card_list.get(card_list_keys.get(i)).card_texture
+		new_card_base.texture = card_list.card_list_data.get(card_list_keys.get(i)).icon
 		new_card_base.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		
 		new_card_base.size = Vector2(100.0, 150.0)

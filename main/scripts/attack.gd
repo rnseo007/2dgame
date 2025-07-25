@@ -23,7 +23,7 @@ var inv_max : int = 36
 var inv_card_list : Array = []
 var cur_card_list : Array = []
 var card_bullet : PackedScene = preload("res://card_system/scenes/card_bullet.tscn")
-@onready var card_list := preload("res://card_system/data/card_list.tres").card_list_data
+@onready var card_list := preload("res://card_system/data/total_data/card_list.tres").card_list_data
 
 func _ready() -> void:
 	#inventory reset

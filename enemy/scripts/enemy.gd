@@ -53,6 +53,7 @@ func _process(_delta):
 	$TestText.text = "<ORC>\n{0}\nHP: {1}\nSPEED: {2}\nDebuff: {3}".format({0:global_position.floor(),1:cur_hp,2:speed,3:debuff})
 
 func _on_hit_box_entered(area: Area2D) -> void:
+	return
 	if area.is_in_group("Player_Bullet"):
 		if hit_once_array.has(area) == false:
 			hit_once_array.append(area)

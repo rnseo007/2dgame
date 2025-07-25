@@ -19,17 +19,23 @@ var angle : Vector2 = Vector2.ZERO
 @onready var player = get_tree().get_first_node_in_group("Player")
 @onready var collision = $CollisionShape2D
 @onready var sprite = $Sprite2D
+@onready var timer = $Timer
+@onready var effects = $Effects
+
+var particles : Array
 
 func _ready() -> void:
 	angle = global_position.direction_to(target)
-	if card_data.particles.size() > 0:
-		for particle in card_data.particles:
-			var new_particle = particle.instantiate()
-			add_child(new_particle)
+	
+	if card_data.pacticles.size() > 0:
+		for i in range(0, card_data.pacticles.size()):
+			var new_particle = card_data.pacticles[i].instantiate()
+			effects.add_child(new_particle)
 			new_particle.finished.connect(_on_particle_finished)
+			particles.append(new_particle)
 	
 	if card_data.material != null:
-		material = card_data.material
+		sprite.material = card_data.material
 
 func _process(delta):
 	position += angle * card_data.speed * delta
@@ -37,8 +43,10 @@ func _process(delta):
 func enemy_hit(_area : Area2D):
 	collision.set_deferred("disabled", true)
 	sprite.visible = false
+	for i in range(0, particles.size()):
+		particles[i].emitting = false
 	set_process(false)
-	$Timer.stop()
+	timer.stop()
 
 func _on_timer_timeout() -> void:
 	queue_free()

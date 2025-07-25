@@ -11,6 +11,6 @@ class_name CardData
 @export var attack_size : float
 @export var speed : float
 @export var damage : int
-@export var material : ShaderMaterial
-@export var particles : Array[PackedScene] = []
-@export var abilities: Array[AbilityData] = []
+@export var material : Material
+@export var pacticles : Array[PackedScene]
+@export var abilities: Array[AbilityData]
