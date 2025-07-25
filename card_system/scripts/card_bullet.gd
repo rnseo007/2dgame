@@ -48,7 +48,6 @@ func _process(delta):
 	position += angle * card_data.speed * delta
 
 func enemy_hit(area : Area2D):
-	print(area)
 	collision.set_deferred("disabled", true)
 	sprite.visible = false
 	for i in range(0, particles.size()):
