@@ -61,9 +61,9 @@ func _on_hit_box_entered(area: Area2D) -> void:
 	var player_bullet = area as Node
 	var pb_data = player_bullet.card_data
 	take_damage(pb_data.damage, pb_data.knock_amount, player_bullet.angle)
-	if pb_data.abilities != null:
-		var pb_debuff = pb_data.abilities
-		take_debuff(pb_debuff.debuff_name, pb_debuff.debuff_time, pb_debuff.debuff_damage, pb_debuff.debuff_pulse_time, pb_debuff.debuff_color)
+	if pb_data.debuff != null:
+		var pb_debuff = pb_data.debuff
+		#take_debuff(pb_debuff.name, pb_debuff.time, pb_debuff.damage, pb_debuff.pulse_time, pb_debuff.color)
 
 func remove_from_list(object):
 	if hit_once_array.has(object):
@@ -90,13 +90,13 @@ func take_damage(damage_amount : int, knock_amount : float, knock_angle : Vector
 	knockback = knock_angle * knock_amount
 	pass
 
-func take_debuff(debuff_name : String, debuff_time : float, debuff_damage_amount : int, debuff_pulse_time : float, debuff_color : Color):
-	if debuff_damage.has(debuff_name):
-		debuff_damage[debuff_name] = debuff_damage_amount
-	
-	_start_debuff_timer(debuff_time, debuff_name)
-	
-	_compute_debuff_color(debuff_color)
+#func take_debuff(name : String, time : float, damage_amount : int, pulse_time : float, color : Color):
+	#if debuff_damage.has(debuff_name):
+		#debuff_damage[debuff_name] = debuff_damage_amount
+	#
+	#_start_debuff_timer(debuff_time, debuff_name)
+	#
+	#_compute_debuff_color(debuff_color)
 	#if debuff_pulse_time > 0:
 		#debuff_pulse_timer.wait_time = debuff_pulse_time
 		#if debuff_pulse_timer.is_stopped():

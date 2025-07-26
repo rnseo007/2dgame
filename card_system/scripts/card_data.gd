@@ -15,4 +15,4 @@ class_name CardData
 @export var material : Material
 @export var pacticle_effects : Array[PackedScene]
 @export var other_effects : Array[PackedScene]
-@export var abilities: AbilityData
+@export var debuff : Debuff

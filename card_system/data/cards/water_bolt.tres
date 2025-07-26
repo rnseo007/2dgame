@@ -20,4 +20,4 @@ collision_size = 4.0
 material = ExtResource("4_xsh0d")
 pacticle_effects = Array[PackedScene]([])
 other_effects = Array[PackedScene]([ExtResource("5_uqae8")])
-abilities = ExtResource("2_eb3mx")
+debuff = ExtResource("2_eb3mx")

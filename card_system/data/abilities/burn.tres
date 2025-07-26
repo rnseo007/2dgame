@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="AbilityData" load_steps=2 format=3 uid="uid://dc3jfjp18kpmn"]
+[gd_resource type="Resource" script_class="Debuff" load_steps=2 format=3 uid="uid://dc3jfjp18kpmn"]
 
-[ext_resource type="Script" uid="uid://bmu5x7dcjykjs" path="res://card_system/scripts/ability_data.gd" id="1_a1h13"]
+[ext_resource type="Script" uid="uid://bmu5x7dcjykjs" path="res://card_system/scripts/debuff.gd" id="1_a1h13"]
 
 [resource]
 script = ExtResource("1_a1h13")
-id = 0
-debuff_name = "burn"
-debuff_time = 3.0
-debuff_damage = 1
-debuff_pulse_time = 0.5
-debuff_color = Color(1, 0, 0, 1)
+name = "burn"
+damage = 1
+type = 0
+duration = 5.0
+pulse_time = 0.5
+color = Color(1, 0, 0, 1)
