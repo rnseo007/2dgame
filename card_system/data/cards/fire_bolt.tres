@@ -12,6 +12,7 @@ id = "fire_bolt"
 display_name = "Fire Bolt"
 description = "Shoot the fire bolt"
 icon = ExtResource("1_ndfmf")
+hp = 1
 knock_amount = 200.0
 attack_size = 1.0
 speed = 300.0

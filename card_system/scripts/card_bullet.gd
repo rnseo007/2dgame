@@ -25,9 +25,11 @@ var angle : Vector2 = Vector2.ZERO
 @onready var sprite : Sprite2D = $Sprites/Sprite2D
 var particles : Array
 var hit_entity : Array
+var hp : int
 
 func _ready() -> void:
 	angle = global_position.direction_to(target)
+	hp = card_data.hp
 	
 	if card_data.pacticle_effects.size() > 0:
 		for i in range(0, card_data.pacticle_effects.size()):
@@ -48,6 +50,12 @@ func _process(delta):
 	position += angle * card_data.speed * delta
 
 func enemy_hit(area : Area2D):
+	if hit_entity.has(area):
+		return
+	hp -= 1
+	hit_entity.append(area)
+	if hp > 0:
+		return
 	collision.set_deferred("disabled", true)
 	sprite.visible = false
 	for i in range(0, particles.size()):

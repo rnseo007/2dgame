@@ -17,12 +17,8 @@ class_name Entity
 
 var knockback : Vector2 = Vector2.ZERO
 
-var debuff_damage : Dictionary[String, int]
-var debuff_slow : int = 0
-var debuff_pulse_timers : Array
-var debuff_timers : Array
-
-var hit_once_array = []
+var active_debuffs := {}
+var slow_debuff_amount : int
 
 var experince_object = preload("res://enemy/scenes/experience.tscn")
 
@@ -47,7 +43,7 @@ func _recover_knockback():
 
 func _compute_move_velocity() -> Vector2:
 	var dir = (player.global_position - global_position).normalized()
-	var spd = max(speed - float(debuff_slow), 0)
+	var spd = max(speed - float(slow_debuff_amount), 0)
 	_flip_sprite_by_dir(dir.x)
 	return dir * spd
 
@@ -63,54 +59,65 @@ func _on_hit_box_entered(area: Area2D) -> void:
 	take_damage(pb_data.damage, pb_data.knock_amount, player_bullet.angle)
 	if pb_data.debuff != null:
 		var pb_debuff = pb_data.debuff
-		#take_debuff(pb_debuff.name, pb_debuff.time, pb_debuff.damage, pb_debuff.pulse_time, pb_debuff.color)
-
-func remove_from_list(object):
-	if hit_once_array.has(object):
-		hit_once_array.erase(object)
+		take_debuff(pb_debuff.type, pb_debuff.name, pb_debuff.duration, pb_debuff.damage, pb_debuff.pulse_time, pb_debuff.color)
 
 func calculate_hp(dmg : int):
 	cur_hp -= dmg
 	if cur_hp <= 0:
 		death()
 
-func _on_debuff_timer_timeout(type) -> void:
-	#debuff_pulse_timer.stop()
-	debuff_damage[type] = 0
-	self_modulate = Color(0, 0, 0,0)
-
-func _on_debuff_pulse_timer_timeout() -> void:
-	hit_anim.play("Hit_Animation")
-	#calculate_hp(debuff_damage)
-	#debuff_pulse_timer.start()
-
 func take_damage(damage_amount : int, knock_amount : float, knock_angle : Vector2):
 	calculate_hp(damage_amount)
 	hit_anim.play("Hit_Animation")
 	knockback = knock_angle * knock_amount
-	pass
 
-#func take_debuff(name : String, time : float, damage_amount : int, pulse_time : float, color : Color):
-	#if debuff_damage.has(debuff_name):
-		#debuff_damage[debuff_name] = debuff_damage_amount
-	#
-	#_start_debuff_timer(debuff_time, debuff_name)
-	#
-	#_compute_debuff_color(debuff_color)
-	#if debuff_pulse_time > 0:
-		#debuff_pulse_timer.wait_time = debuff_pulse_time
-		#if debuff_pulse_timer.is_stopped():
-		#	debuff_pulse_timer.start()
+func take_debuff(type : int, d_name : String, duration : float, damage_amount : int, pulse_time : float, color : Color):
+	#만약 적용된 디버프라면
+	if active_debuffs.has(d_name):
+		active_debuffs[d_name].duration_timer.stop()
+		active_debuffs[d_name].duration_timer.start()
+	else :
+		var inst := {}
+		#새 지속 시간 타이머
+		var duration_timer = Timer.new()
+		duration_timer.wait_time = duration
+		duration_timer.one_shot = true
+		duration_timer.timeout.connect(Callable(self, "_on_debuff_duration_timeout").bind(d_name))
+		debuff_times.add_child(duration_timer)
+		duration_timer.start()
+		
+		inst["duration_timer"] = duration_timer
+		
+		if type == DebuffType.type.DAMAGE:
+			var pulse_timer = Timer.new()
+			pulse_timer.wait_time = pulse_time
+			pulse_timer.one_shot = false
+			pulse_timer.timeout.connect(Callable(self, "_on_debuff_pulse_timeout").bind(damage_amount))
+			debuff_times.add_child(pulse_timer)
+			pulse_timer.start()
+			
+			inst["pulse_timer"] = pulse_timer
+		elif type == DebuffType.type.STATUS:
+			slow_debuff_amount += damage_amount
+			inst["slow_debuff_amount"] = damage_amount
+		
+		sprite.self_modulate = color
+		active_debuffs[d_name] = inst
 
-func _start_debuff_timer(time : float, name : String) -> Timer:
-	var timer = Timer.new()
-	timer.wait_time = time
-	timer.one_shot = true
-	timer.name = "debuff_timer_" + name
-	debuff_times.add_child(timer)
-	timer.timeout.connect(_on_debuff_timer_timeout).bind(name)
-	timer.start()
-	return timer
+#디버프 지속시간 끝
+func _on_debuff_duration_timeout(d_name):
+	#슬로우 있을 시 해당 슬로우 만큼만 제거
+	if active_debuffs[d_name].has("slow_debuff_amount"):
+		slow_debuff_amount = max(slow_debuff_amount - active_debuffs[d_name].slow_debuff_amount, 0)
+	#타이머 삭제
+	active_debuffs[d_name].duration_timer.queue_free()
+	if active_debuffs[d_name].has("pulse_timer"):
+		active_debuffs[d_name].pulse_timer.queue_free()
+	#디버프 삭제
+	active_debuffs.erase(d_name)
+	if active_debuffs.size() <= 0:
+		sprite.self_modulate = Color(1,1,1,1)
 
-func _compute_debuff_color(debuff_color):
-	sprite.self_modulate = debuff_color
+func _on_debuff_pulse_timeout(damage_amount : int):
+	calculate_hp(damage_amount)
+	hit_anim.play("Hit_Animation")

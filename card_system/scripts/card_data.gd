@@ -7,6 +7,7 @@ class_name CardData
 @export var description : String
 @export var icon : Texture2D
 @export_group("Bullet Property")
+@export var hp : int = 1
 @export var knock_amount : float
 @export var attack_size : float
 @export var speed : float

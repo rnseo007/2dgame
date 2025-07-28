@@ -12,6 +12,7 @@ id = "water_bolt"
 display_name = "Water Bolt"
 description = "Shoot the water bolt"
 icon = ExtResource("2_uuw6r")
+hp = 3
 knock_amount = 100.0
 attack_size = 1.0
 speed = 300.0
