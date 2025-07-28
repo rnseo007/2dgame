@@ -30,7 +30,7 @@ func _ready() -> void:
 	#inv_card_list will have only list keys
 	for i in range(0, inv_max):
 		inv_card_list.append(card_list.keys().pick_random())
-		#inv_card_list.append("water_bolt")
+		#inv_card_list.append("mana_shot")
 	print(inv_card_list.size())
 	
 	#hands card get(reset)
