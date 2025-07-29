@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="UpGradeData" load_steps=2 format=3 uid="uid://cnygxoqg4h1cq"]
+
+[ext_resource type="Script" uid="uid://drdjbx2as7ppd" path="res://hud/scripts/upgrade_data.gd" id="1_nw6sv"]
+
+[resource]
+script = ExtResource("1_nw6sv")
+name = "Attack Speed"
+description = "attack speed up"

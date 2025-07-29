@@ -9,13 +9,14 @@ signal clicked
 
 var card_name : String = "<NAME>"
 var card_descript : String = "<descript>"
+var value : int = 5
 
 var card_texture = preload("res://assets/Card/card frames/base 8.png")
 
 func _ready() -> void:
 	texture = card_texture
 	
-	name_label.text = card_name
+	name_label.text = "%s %d%%" % [card_name, value]
 	descript_label.text = card_descript
 	
 	area2d.mouse_entered.connect(_on_mouse_entered)

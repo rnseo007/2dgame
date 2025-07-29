@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UpBoxData" load_steps=6 format=3 uid="uid://dtpybdiktl6ve"]
+
+[ext_resource type="Texture2D" uid="uid://d0p8y76jp36u5" path="res://assets/Card/card frames/base 10.png" id="1_6pwe4"]
+[ext_resource type="Script" uid="uid://bx2r207ra8uje" path="res://hud/scripts/up_box_data.gd" id="2_awdiw"]
+[ext_resource type="Resource" uid="uid://cnygxoqg4h1cq" path="res://hud/data/upgrades/u_attack_speed.tres" id="3_7twak"]
+[ext_resource type="Resource" uid="uid://ncard7x567rc" path="res://hud/data/upgrades/u_max_ammo.tres" id="4_7twak"]
+[ext_resource type="Resource" uid="uid://ct486eokfdco5" path="res://hud/data/upgrades/u_reload_time.tres" id="5_2etn6"]
+
+[resource]
+script = ExtResource("2_awdiw")
+upgrade_list = Dictionary[String, Resource]({
+"attack_speed": ExtResource("3_7twak"),
+"max_ammo": ExtResource("4_7twak"),
+"reload_time": ExtResource("5_2etn6")
+})
+icon = ExtResource("1_6pwe4")

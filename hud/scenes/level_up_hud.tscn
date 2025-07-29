@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1sbr430errs4"]
+[gd_scene load_steps=3 format=3 uid="uid://d1sbr430errs4"]
 
 [ext_resource type="Script" uid="uid://noklgg2gq4b3" path="res://hud/scripts/level_up_hud.gd" id="1_gldiv"]
+[ext_resource type="Resource" uid="uid://dtpybdiktl6ve" path="res://hud/data/boxs/gold_up_box.tres" id="2_kcb8u"]
 
 [node name="LevelUpHud" type="Control"]
 process_mode = 3
@@ -13,6 +14,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_gldiv")
+upbox_list = Dictionary[String, Resource]({
+"gold": ExtResource("2_kcb8u")
+})
 
 [node name="BackGround" type="ColorRect" parent="."]
 z_index = 16

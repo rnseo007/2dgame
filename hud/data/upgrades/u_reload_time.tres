@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="UpGradeData" load_steps=2 format=3 uid="uid://ct486eokfdco5"]
+
+[ext_resource type="Script" uid="uid://drdjbx2as7ppd" path="res://hud/scripts/upgrade_data.gd" id="1_pow0d"]
+
+[resource]
+script = ExtResource("1_pow0d")
+name = "Reload Time"
+description = "down reload time"

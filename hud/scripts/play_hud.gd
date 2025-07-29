@@ -29,7 +29,9 @@ func _ready() -> void:
 #player call -> level up function
 func level_up() -> void:
 	update()
-	add_child(level_up_hud.instantiate())
+	var new_level_up_hud = level_up_hud.instantiate()
+	new_level_up_hud.attack = attack
+	add_child(new_level_up_hud)
 	#pause
 	if not get_tree().paused:
 		get_tree().paused = true

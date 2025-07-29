@@ -1,12 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://ds6bhrkd6aq8"]
+[gd_scene load_steps=3 format=3 uid="uid://i502itr15mp4"]
 
 [ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="1_3h1ck"]
-[ext_resource type="Script" uid="uid://trfpd50byrsj" path="res://enemy/scripts/damage_text.gd" id="1_qdb4h"]
+
+[sub_resource type="GDScript" id="GDScript_3h1ck"]
+script/source = "extends Node2D
+
+var speed : float = 10.0
+var move_position = Vector2(0, 100)
+var dmg : int = 0
+var lifetime : float = 1.0
+
+@onready var label_damage = $Label
+
+func _process(delta: float) -> void:
+	label_damage.text = \"%d\" % [dmg]
+	position = position.lerp(move_position, speed)
+	lifetime -= delta
+	if lifetime <= 0:
+		queue_free()
+"
 
 [node name="DamageText" type="Node2D"]
-script = ExtResource("1_qdb4h")
+script = SubResource("GDScript_3h1ck")
 
 [node name="Label" type="Label" parent="."]
+z_index = 10
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
