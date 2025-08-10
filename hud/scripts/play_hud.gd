@@ -12,6 +12,7 @@ extends CanvasLayer
 @onready var xp_progress_bar = $Xp_bar
 @onready var level_label = $Xp_bar/Level
 @onready var hand = $HandCardsDisplay
+@onready var xp_progress_bar_mat = $Xp_bar.material #shader material
 
 #패 display position
 var inv_end_x = 388.0
@@ -20,6 +21,10 @@ var inv_start_x = 900.0
 #current cards array
 var cur_cards : Array = []
 
+#level up hud
+var level_up_count : int = 0
+var is_showing : bool = false
+
 func _ready() -> void:
 	player.levelup.connect(level_up)
 	attack.reload_card.connect(_on_attack_reload_card)
@@ -27,14 +32,32 @@ func _ready() -> void:
 	inventory_icon.clicked.connect(_pop_up_inventory)
 
 #player call -> level up function
-func level_up() -> void:
+func level_up(count : int):
+	print("level up count : ", count)
+	level_up_count = count
+	pop_level_up_hud()
 	update()
+
+func pop_level_up_hud() -> void:
+	if level_up_count <= 0:
+		is_showing = false
+		xp_progress_bar_mat.set_shader_parameter("is_glowing", false)
+		get_tree().paused = false
+		return
+	
+	xp_progress_bar_mat.set_shader_parameter("is_glowing", true)
+	is_showing = true
+	level_up_count -= 1
+	
 	var new_level_up_hud = level_up_hud.instantiate()
-	new_level_up_hud.attack = attack
 	add_child(new_level_up_hud)
 	#pause
-	if not get_tree().paused:
+	if get_tree().paused == false:
 		get_tree().paused = true
+	
+	await new_level_up_hud.closed
+	
+	pop_level_up_hud()
 
 #display update
 func update() -> void:
@@ -108,5 +131,3 @@ func _pop_up_inventory() -> void:
 	new_inventory.inv_card_list = attack.inv_card_list
 	new_inventory.card_list = card_list.card_list_data
 	add_child(new_inventory)
-	if not get_tree().paused:
-		get_tree().paused = true

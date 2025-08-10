@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://d3myw714we70r"]
 
-[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://hud/scenes/highlight.gdshader" id="1_3bte7"]
+[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://hud/shaders/highlight.gdshader" id="1_3bte7"]
 [ext_resource type="Texture2D" uid="uid://d0p8y76jp36u5" path="res://assets/Card/card frames/base 10.png" id="2_3bte7"]
 [ext_resource type="Script" uid="uid://b3cyiopbl45je" path="res://hud/scripts/inv_card.gd" id="3_54v3k"]
 

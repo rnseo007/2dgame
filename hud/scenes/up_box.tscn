@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bdo3sashhyy7k"]
 
-[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://hud/scenes/highlight.gdshader" id="1_dqnkf"]
+[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://hud/shaders/highlight.gdshader" id="1_dqnkf"]
 [ext_resource type="Texture2D" uid="uid://bmg8g23v8edwp" path="res://assets/Card/card frames/base 8.png" id="1_f5qn8"]
 [ext_resource type="Script" uid="uid://uq35k6tihsry" path="res://hud/scripts/up_box.gd" id="2_dh8tx"]
 [ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="4_dqnkf"]

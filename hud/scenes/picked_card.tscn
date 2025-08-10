@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bres6jib3lgt7"]
 
-[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://hud/scenes/highlight.gdshader" id="1_qt4b4"]
+[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://hud/shaders/highlight.gdshader" id="1_qt4b4"]
 [ext_resource type="Script" uid="uid://4b8ax0laf7pa" path="res://hud/scripts/picked_card.gd" id="3_fl2y6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uoyh8"]

@@ -6,12 +6,13 @@ extends CharacterBody2D
 @export var movement_speed : float = 300
 @export var grab_radius : float = 200
 
-signal levelup
+signal levelup(count : int)
 
 var hp = 10
 var cur_xp : int = 0
 var max_xp : int = 10
 var level : int = 1
+var level_up_count : int = 0
 
 func _ready() -> void:
 	grab_area_set()
@@ -50,14 +51,18 @@ func _on_collect_area_area_entered(area: Area2D) -> void:
 
 func calculate_experience(gotxp : int):
 	cur_xp += gotxp
-	if cur_xp >= max_xp:
+	while cur_xp >= max_xp:
 		level_up()
+	if level_up_count > 0:
+		levelup.emit(level_up_count)
+		level_up_count = 0
 
 func level_up():
 	cur_xp -= max_xp
 	level += 1
 	max_xp += level**2 - level*2
-	levelup.emit()
+	level_up_count += 1
+	print(level)
 
 func grab_area_set():
 	grab_area.shape.radius = grab_radius

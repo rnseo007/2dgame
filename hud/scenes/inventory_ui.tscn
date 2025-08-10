@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dmejcchdvdbh3" path="res://hud/scripts/inventory_ui.gd" id="1_dclje"]
 [ext_resource type="FontFile" uid="uid://b2vwkisoh57if" path="res://assets/Fonts/NeoDunggeunmoPro-Regular.ttf" id="2_woesh"]
 [ext_resource type="PackedScene" uid="uid://bres6jib3lgt7" path="res://hud/scenes/picked_card.tscn" id="3_76qqu"]
-[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://hud/scenes/highlight.gdshader" id="4_hdbsw"]
+[ext_resource type="Shader" uid="uid://ccpbd7l2lsqqu" path="res://hud/shaders/highlight.gdshader" id="4_hdbsw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hdbsw"]
 resource_local_to_scene = true
@@ -157,3 +157,19 @@ theme_override_font_sizes/font_size = 32
 shortcut = SubResource("Shortcut_hdbsw")
 text = "FUSIO"
 flat = true
+
+[node name="Out_Button" type="Button" parent="."]
+z_index = 30
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.0
+offset_top = 6.0
+offset_right = -7.0
+offset_bottom = 57.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("2_woesh")
+theme_override_font_sizes/font_size = 32
+text = "X"
