@@ -9,10 +9,11 @@ extends CanvasLayer
 @onready var inventory_icon = $InvenIcon
 @onready var hp_label = $Hp
 @onready var card_label = $Card
-@onready var xp_progress_bar = $Xp_bar
-@onready var level_label = $Xp_bar/Level
+@onready var xp_progress_rect = $Xp/XpRect
+@onready var xp_progress_level = $Xp/Level
+@onready var xp_progress_percent = $Xp/Percent
+@onready var xp_progress_rect_mat = $Xp/XpRect.material #shader material
 @onready var hand = $HandCardsDisplay
-@onready var xp_progress_bar_mat = $Xp_bar.material #shader material
 
 #패 display position
 var inv_end_x = 388.0
@@ -22,8 +23,8 @@ var inv_start_x = 900.0
 var cur_cards : Array = []
 
 #level up hud
-var level_up_count : int = 0
-var is_showing : bool = false
+var pending_levelups: int = 0
+var processing_levelups: bool = false
 
 func _ready() -> void:
 	player.levelup.connect(level_up)
@@ -33,42 +34,66 @@ func _ready() -> void:
 
 #player call -> level up function
 func level_up(count : int):
-	print("level up count : ", count)
-	level_up_count = count
-	pop_level_up_hud()
-	update()
-
-func pop_level_up_hud() -> void:
-	if level_up_count <= 0:
-		is_showing = false
-		xp_progress_bar_mat.set_shader_parameter("is_glowing", false)
-		get_tree().paused = false
+	#레벨업 오류 방지
+	if count <= 0:
 		return
+	#레벨업 횟수 입력
+	pending_levelups += count
+	#레벨업 중이 아닐 때 레벨업 프로세스 진행
+	if not processing_levelups:
+		_process_level_ups()
+
+
+func _process_level_ups() -> void:
+	#레벨업 프로세스 진행중 표기
+	processing_levelups = true
 	
-	xp_progress_bar_mat.set_shader_parameter("is_glowing", true)
-	is_showing = true
-	level_up_count -= 1
+	#레벨업 연출 준비
+	_set_xp_glow(true)
+	_set_xp_full_visuals()
 	
-	var new_level_up_hud = level_up_hud.instantiate()
-	add_child(new_level_up_hud)
 	#pause
-	if get_tree().paused == false:
+	if not get_tree().paused:
 		get_tree().paused = true
 	
-	await new_level_up_hud.closed
+	while pending_levelups > 0:
+		var new_level_up_hud := level_up_hud.instantiate()
+		add_child(new_level_up_hud)
+		
+		pending_levelups -= 1
+		await new_level_up_hud.closed
 	
-	pop_level_up_hud()
+	#마무리 정리
+	_set_xp_glow(false)
+	get_tree().paused = false
+	processing_levelups = false
+	update_hud()
+
+func _set_xp_glow(switch : bool) -> void:
+	xp_progress_rect_mat.set_shader_parameter("is_glowing", switch)
+
+func _set_xp_full_visuals() -> void:
+	xp_progress_rect.scale.x = 1.0
+	xp_progress_percent.text = "100%"
 
 #display update
-func update() -> void:
-	hp_label.text = "HP : {0}".format({0:player.hp})
+func update_hud() -> void:
+	#hp
+	hp_label.text = "HP : %d" % [player.hp]
+	#카드 현재 탄약 / 최대 탄약
 	card_label.text = "CARD : %03d / %03d" % [attack.cur_ammo, attack.max_ammo]
-	xp_progress_bar.max_value = player.max_xp
-	xp_progress_bar.value = player.cur_xp
-	level_label.text = "LEVEL : %d" % [player.level]
+	
+	var denom : float = float(max(1, player.max_xp)) #0 나눗셈 방지
+	var xp_ratio : float = clamp(float(player.cur_xp) / denom, 0.0, 1.0) #0~1 사이값 가질 수 있도록 제한
+	
+	xp_progress_rect.scale.x = xp_ratio
+	xp_progress_level.text = "LEVEL : %d" % [player.level]
+	
+	var percent := int(xp_ratio * 100)
+	xp_progress_percent.text = "%d%%" % [percent]
 
 func _process(_delta: float) -> void:
-	update()
+	update_hud()
 
 #attack node call(reload_card)
 #cur_card_list = inv_card_list array's key
