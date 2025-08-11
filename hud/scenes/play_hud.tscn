@@ -107,6 +107,7 @@ theme_override_font_sizes/font_size = 32
 text = "Card : <null>"
 
 [node name="Xp" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0

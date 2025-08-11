@@ -70,10 +70,12 @@ func _process_level_ups() -> void:
 	update_hud()
 
 func _set_xp_glow(switch : bool) -> void:
+	#glow 온오프
 	xp_progress_rect_mat.set_shader_parameter("is_glowing", switch)
 
 func _set_xp_full_visuals() -> void:
-	xp_progress_rect.scale.x = 1.0
+	animate_xp_bar(1.0)
+	#xp_progress_rect.scale.x = 1.0
 	xp_progress_percent.text = "100%"
 
 #display update
@@ -86,11 +88,23 @@ func update_hud() -> void:
 	var denom : float = float(max(1, player.max_xp)) #0 나눗셈 방지
 	var xp_ratio : float = clamp(float(player.cur_xp) / denom, 0.0, 1.0) #0~1 사이값 가질 수 있도록 제한
 	
-	xp_progress_rect.scale.x = xp_ratio
+	#진행도 표시
+	animate_xp_bar(xp_ratio)
+	#xp_progress_rect.scale.x = xp_ratio
+	#레벨 표기
 	xp_progress_level.text = "LEVEL : %d" % [player.level]
 	
+	#퍼센트 표기
 	var percent := int(xp_ratio * 100)
 	xp_progress_percent.text = "%d%%" % [percent]
+
+func animate_xp_bar(target_ratio:float, duration:float = 0.1) -> void:
+	var clamped_ratio = clamp(target_ratio, 0.0, 1.0)
+	var tween = xp_progress_rect.create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	
+	tween.tween_property(xp_progress_rect, "scale:x", clamped_ratio, duration)
 
 func _process(_delta: float) -> void:
 	update_hud()

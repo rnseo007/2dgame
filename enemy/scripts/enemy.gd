@@ -6,7 +6,7 @@ class_name Entity
 @export var cur_hp : int = 50
 @export var knockback_recovery = 5.0
 @export var xp_drop_chance : int = 50 # % percent
-@export var xp_amount : int = 50
+@export var xp_amount : int = 3
 
 @onready var sprite = $Enemy_sprite2D
 @onready var walk_anim = $WalkAnimationPlayer
