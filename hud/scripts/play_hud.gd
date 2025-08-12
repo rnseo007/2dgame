@@ -23,8 +23,11 @@ var inv_start_x = 900.0
 var cur_cards : Array = []
 
 #level up hud
-var pending_levelups: int = 0
-var processing_levelups: bool = false
+var pending_levelups : int = 0
+var processing_levelups : bool = false
+
+#xp bar ratio save
+var last_xp_ratio :float = -1.0
 
 func _ready() -> void:
 	player.levelup.connect(level_up)
@@ -75,7 +78,6 @@ func _set_xp_glow(switch : bool) -> void:
 
 func _set_xp_full_visuals() -> void:
 	animate_xp_bar(1.0)
-	#xp_progress_rect.scale.x = 1.0
 	xp_progress_percent.text = "100%"
 
 #display update
@@ -86,24 +88,29 @@ func update_hud() -> void:
 	card_label.text = "CARD : %03d / %03d" % [attack.cur_ammo, attack.max_ammo]
 	
 	var denom : float = float(max(1, player.max_xp)) #0 나눗셈 방지
-	var xp_ratio : float = clamp(float(player.cur_xp) / denom, 0.0, 1.0) #0~1 사이값 가질 수 있도록 제한
+	var current_xp_ratio : float = clamp(float(player.cur_xp) / denom, 0.0, 1.0) #0~1 사이값 가질 수 있도록 제한
 	
 	#진행도 표시
-	animate_xp_bar(xp_ratio)
-	#xp_progress_rect.scale.x = xp_ratio
+	#현재 xp와 이전 xp가 차이 날 때만 실행
+	if abs(current_xp_ratio - last_xp_ratio) > 0.01:
+		animate_xp_bar(current_xp_ratio)
+		#xp 저장
+		last_xp_ratio = current_xp_ratio
+		#퍼센트 표기
+		var percent := int(current_xp_ratio * 100)
+		xp_progress_percent.text = "%d%%" % [percent]
+	
 	#레벨 표기
 	xp_progress_level.text = "LEVEL : %d" % [player.level]
-	
-	#퍼센트 표기
-	var percent := int(xp_ratio * 100)
-	xp_progress_percent.text = "%d%%" % [percent]
 
-func animate_xp_bar(target_ratio:float, duration:float = 0.1) -> void:
+func animate_xp_bar(target_ratio:float, duration:float = 0.15) -> void:
+	#값 최소 최댓값 보정 0.0~1.0
 	var clamped_ratio = clamp(target_ratio, 0.0, 1.0)
+	#tween 생성
 	var tween = xp_progress_rect.create_tween()
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_OUT)
-	
+	#tween 실행
 	tween.tween_property(xp_progress_rect, "scale:x", clamped_ratio, duration)
 
 func _process(_delta: float) -> void:
@@ -135,7 +142,7 @@ func _on_attack_reload_card() -> void:
 		hand.add_child(new_card_base)
 		cur_cards.append(new_card_base)
 		
-		#print(duration, "> ", duration*i, " : ", attack.reload_time)
+		#tween 애니메이션
 		var tween = get_tree().create_tween()
 		tween.tween_interval(duration*i)
 		if i > 0:

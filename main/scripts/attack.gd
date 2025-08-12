@@ -25,6 +25,9 @@ var cur_card_list : Array = []
 var card_bullet : PackedScene = preload("res://card_system/scenes/card_bullet.tscn")
 @onready var card_list := preload("res://card_system/data/total_data/card_list.tres").card_list_data
 
+#가까운 적 저장
+var cur_close_enemy_pos
+
 func _ready() -> void:
 	#inventory reset
 	#inv_card_list will have only list keys
@@ -39,6 +42,13 @@ func _ready() -> void:
 	reload_card.emit()
 	reloadTimer.start(reload_time)
 
+func _process(delta: float) -> void:
+	#가장 가까운 적 구하기
+	var enemys : Array = get_tree().get_nodes_in_group("Enemy")
+	if enemys.size() > 0:
+		cur_close_enemy_pos = get_close_target(enemys)
+		player.rotate_indicator(cur_close_enemy_pos)
+
 func _on_reload_timer_timeout() -> void:
 	cur_ammo = max_ammo
 	attackTimer.start(attack_speed)
@@ -51,10 +61,9 @@ func _on_attack_timer_timeout() -> void:
 		return
 	
 	if cur_ammo > 0:
-		#var attack = card_list[cur_card_list[0]].instantiate()
 		var new_bullet = card_bullet.instantiate()
 		new_bullet.position = player.global_position
-		new_bullet.target = get_close_target(enemys)
+		new_bullet.target = cur_close_enemy_pos
 		new_bullet.card_data = card_list.get(cur_card_list[0])
 		
 		add_child(new_bullet)
