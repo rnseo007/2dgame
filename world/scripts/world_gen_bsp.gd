@@ -13,6 +13,8 @@ class_name WorldGenBSP
 const WALL := 0
 const FLOOR := 1
 
+const INVALID_V2I := Vector2i(-1, -1)
+
 # -------------------
 # Internal types(내부 유형)
 # -------------------
@@ -33,14 +35,30 @@ var rng := RandomNumberGenerator.new()
 # --------------------
 # API
 # --------------------
-func generate(seed : int = 0) -> void:
+func generate(rseed : int = 0) -> Array:
 	# 1) 초기화
-	if seed != 0:
-		rng.seed = seed
+	if rseed != 0:
+		rng.seed = rseed
 	else:
 		rng.randomize()
 	
-	#var grid := _make_grid(map_size, WALL)
+	var grid := _make_grid(map_size, WALL)
+	
+	#2)BSP 분할 트리 만들기
+	var root := Leaf.new(Rect2i(Vector2i.ZERO, map_size))
+	_build_bsp(root, 0)
+	
+	#3) 리프에 방 생성
+	_create_rooms(root)
+	
+	#4) 형제 간 복도 연결
+	_connect_siblings(root, grid)
+	
+	#5) 그리드에 방/복도 조각
+	_carve_rooms(root, grid)
+	
+	#6) 가장자리 마감: 외각은 벽 유지
+	return grid
 
 # ---------------------
 # BSP buliding
@@ -133,26 +151,90 @@ func _connect_siblings(leaf : Leaf, grid: Array) -> void:
 		var l := _get_any_room_center(leaf.left)
 		var r := _get_any_room_center(leaf.right)
 		
-		if l != null and r != null:
+		if l != INVALID_V2I and r != INVALID_V2I:
 			_carve_corridor(grid, l, r)
 		#재귀
 		_connect_siblings(leaf.left, grid)
 		_connect_siblings(leaf.right, grid)
 
-func _get_any_room_center(leaf : Leaf) -> Vector2i:
+func _get_any_room_center(leaf: Leaf) -> Vector2i:
 	#좌,우 둘 다 없다면(분할 완료됐다면) & 크기가 0이 아니라면
 	if leaf.left == null and leaf.right == null and leaf.room.size != Vector2i.ZERO:
 		return leaf.room.position + leaf.room.size / 2
-	# 하위에서 아무 방이나 찾아서 반환
+	# 하위에서 아무 방이나 찾아서 반환(재귀)
 	if leaf.left:
-		var i := _get_any_room_center(leaf.left)
-		if i != null:
-			return i
+		var c := _get_any_room_center(leaf.left)
+		if c != INVALID_V2I:
+			return c
+	
 	if leaf.right:
-		return _get_any_room_center(leaf.right)
-	return Vector2i(0,0) # <----------------------------------------------------------- 오류
+		var d := _get_any_room_center(leaf.right)
+		if d != INVALID_V2I:
+			return d
+	return INVALID_V2I
 
-
+# -----------------------------
+# Carving
+# -----------------------------
+func _carve_rooms(leaf : Leaf, grid : Array) -> void:
+	if leaf.left == null and leaf.right == null:
+		if leaf.room.size != Vector2i.ZERO:
+			_rect_fill(grid, leaf.room, FLOOR)
+	else:
+		if leaf.left:
+			_carve_rooms(leaf.left, grid)
+		if leaf.right:
+			_carve_rooms(leaf.right, grid)
 
 func _carve_corridor(grid : Array, l : Vector2i, r : Vector2i) -> void:
-	pass
+	#L자 복도: 가로->세로 또는 세로->가로 로 무작위 선택
+	var horizontal_first := rng.randi() % 2 == 0
+	if horizontal_first:
+		_hline(grid, l.x, r.x, l.y)
+		_vline(grid, l.y, r.y, r.x)
+	else:
+		_vline(grid, l.y, r.y, l.x)
+		_hline(grid, l.x, r.x, r.y)
+
+#corridor width 지원
+func _hline(grid: Array, x0: int, x1: int, y: int) -> void:
+	if x0 > x1:
+		var t := x0; x0 = x1; x1 = t
+	for x in range(x0, x1 + 1):
+		@warning_ignore("integer_division")
+		for w in range(-int(corridor_width/2), corridor_width - int(corridor_width/2)):
+			_set_floor(grid, Vector2i(x, y + w))
+
+func _vline(grid: Array, y0: int, y1: int, x: int) -> void:
+	if y0 > y1:
+		var t := y0; y0 = y1; y1 = t
+	for y in range(y0, y1 + 1):
+		@warning_ignore("integer_division")
+		for w in range(-int(corridor_width/2), corridor_width - int(corridor_width/2)):
+			_set_floor(grid, Vector2i(x + w, y))
+
+func _rect_fill(grid : Array, r : Rect2i, tile : int) -> void:
+	for yy in range(r.position.y, r.position.y + r.size.y):
+		for xx in range(r.position.x, r.position.x + r.size.x):
+			if _in_bounds(Vector2i(xx, yy), map_size):
+				grid[yy][xx] = tile
+
+func _set_floor(grid: Array, p: Vector2i) -> void:
+	if _in_bounds(p, map_size):
+		grid[p.y][p.x] = FLOOR
+
+# --------------------------
+# Utils
+# --------------------------
+func _make_grid(size: Vector2i, fill: int) -> Array:
+	var g := []
+	g.resize(size.y)
+	for y in size.y:
+		g[y] = []
+		g[y].resize(size.x)
+		for x in size.x:
+			g[y][x] = fill
+	return g
+
+func _in_bounds(p: Vector2i, size: Vector2i) -> bool:
+	return p.x >= 0 and p.y >= 0 and p.x < size.x and p.y < size.y
