@@ -115,3 +115,11 @@ script = ExtResource("1_1qa1k")
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 scale = Vector2(0.444633, 0.444633)
 tile_set = SubResource("TileSet_rf5xd")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 0.816667, 0, 1)
