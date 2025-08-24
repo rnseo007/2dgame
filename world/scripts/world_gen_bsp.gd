@@ -41,6 +41,7 @@ func generate(rseed : int = 0) -> Array:
 		rng.seed = rseed
 	else:
 		rng.randomize()
+	print(rng.seed)
 	
 	var grid := _make_grid(map_size, WALL)
 	
