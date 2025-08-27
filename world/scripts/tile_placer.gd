@@ -15,10 +15,12 @@ func print_to_tilemap(grid: Array, floor_layer : TileMapLayer, wall_layer: TileM
 				floor_cells.append(Vector2i(x, y))
 			if cell == 1:
 				#wall tile
+				#wall_layer.set_cell(Vector2i(x,y), 0, Vector2i(0,0))
 				wall_cells.append(Vector2i(x, y))
 			if cell == 2:
 				#door tile
 				wall_cells.append(Vector2i(x, y))
 	
+	#print(wall_cells)
 	floor_layer.set_cells_terrain_connect(floor_cells, 0, 0)
 	wall_layer.set_cells_terrain_connect(wall_cells, 0, 0)

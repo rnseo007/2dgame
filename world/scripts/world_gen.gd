@@ -8,15 +8,17 @@ class_name WorldGen
 #RNG
 var rng := RandomNumberGenerator.new()
 
-func seed_set(r_seed : int = 0):
+func generate(r_seed : int = 0):
 	#reset
 	if r_seed != 0:
 		rng.seed = r_seed
 	else:
 		rng.randomize()
 	print("SEED :", rng.seed)
+	
+	var rooms : Array
 
-func generate_room(prev_entered_dir) -> Array:
+func generate_room(prev_entered_dir, world_pos : Vector2i) -> Array:
 	#방 크기 설정
 	var width = rng.randi_range(5, 30)
 	var height = rng.randi_range(5, 30)

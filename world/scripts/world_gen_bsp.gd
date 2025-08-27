@@ -10,8 +10,8 @@ class_name WorldGenBSP
 @export var max_depth : int = 8 # 분할 최대 깊이 (밀도 조절)
 @export var corridor_width : int = 1 # 복도 폭
 
-const WALL := 0
-const FLOOR := 1
+const WALL := 1
+const FLOOR := 0
 
 const INVALID_V2I := Vector2i(-1, -1)
 
